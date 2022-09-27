@@ -1,5 +1,6 @@
 <?php
 
+use common\models\Services;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -32,9 +33,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'status',
-            'created_at',
-            'updated_at',
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    return Services::getStatusLabel()[$model->status];
+                }
+            ],
+            [
+                'attribute' => 'prettyCreateDate',
+                'label' => 'Дата и время создания'
+            ],
+            [
+                'attribute' => 'prettyUpdateDate',
+                'label' => 'Дата и время редактирования'
+            ]
         ],
     ]) ?>
 

@@ -31,7 +31,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'name',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function($model){
+                    return Services::getStatusLabel()[$model->status];
+                }
+            ],
             'created_at',
             'updated_at',
             [

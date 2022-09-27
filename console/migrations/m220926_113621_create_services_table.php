@@ -16,8 +16,8 @@ class m220926_113621_create_services_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(255),
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
-            'created_at' => $this->string(255)->notNull(),
-            'updated_at' => $this->string(255)->notNull(),
+            'created_at' => $this->integer(11),
+            'updated_at' => $this->integer(11),
 
         ]);
     }
