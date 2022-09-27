@@ -15,6 +15,9 @@ return [
         'clients' => [
             'class' => 'frontend\modules\clients\Module',
         ],
+        'services' => [
+            'class' => 'frontend\modules\services\Module',
+        ],
     ],
     'components' => [
         'request' => [
