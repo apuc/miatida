@@ -6,26 +6,20 @@ use Yii;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "body_types".
+ * This is the model class for table "tarifes".
  *
  * @property int $id
  * @property string|null $name
  */
-class BodyTypes extends \yii\db\ActiveRecord
+class Tarifes extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'body_types';
+        return 'tarifes';
     }
-
-    public static function getList()
-    {
-        return ArrayHelper::map(self::find()->all(), 'id', 'name');
-    }
-
 
     /**
      * {@inheritdoc}
@@ -36,6 +30,12 @@ class BodyTypes extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 255],
         ];
     }
+
+    public static function getList()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
+    }
+
 
     /**
      * {@inheritdoc}

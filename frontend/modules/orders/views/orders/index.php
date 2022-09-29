@@ -1,24 +1,24 @@
 <?php
 
-use frontend\modules\services\models\Services;
+use frontend\modules\orders\models\Orders;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var frontend\modules\services\models\ServicesSearch $searchModel */
+/** @var frontend\modules\orders\models\OrdersSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Услуги';
+$this->title = 'Заказы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="services-index">
+<div class="orders-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Добавить услугу', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать заказ', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,11 +30,41 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'name',
+            [
+                'attribute' => 'user_id',
+                'value' => function($model){
+                    return $model->user->username;
+                }
+            ],
+            [
+                'attribute' => 'client_id',
+                'value' => function($model){
+                    return $model->client->name;
+                }
+            ],
+            [
+                'attribute' => 'price_id',
+                'value' => function($model){
+                    return $model->price->price;
+                }
+            ],
+            [
+                'attribute' => 'car_id',
+                'value' => function($model){
+                    return $model->car->name;
+                }
+            ],
+            [
+                'attribute' => 'work_shift_id',
+                'value' => function($model){
+                    return $model->workShift->prettyDate;
+                }
+
+            ],
             [
                 'attribute' => 'status',
                 'value' => function($model){
-                    return Services::getStatusLabel()[$model->status];
+                    return Orders::getStatusLabel()[$model->status];
                 }
             ],
             [
@@ -52,9 +82,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'label' => 'Дата и время редактирования'
             ],
+
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, Services $model, $key, $index, $column) {
+                'urlCreator' => function ($action, Orders $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],

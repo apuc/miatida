@@ -18,6 +18,30 @@ return [
         'services' => [
             'class' => 'frontend\modules\services\Module',
         ],
+        'settings' => [
+            'class' => 'frontend\modules\settings\Module',
+        ],
+        'body-types' => [
+            'class' => 'frontend\modules\bodyTypes\Module',
+        ],
+        'work-shifts' => [
+            'class' => 'frontend\modules\workShifts\Module',
+        ],
+        'tarifes' => [
+            'class' => 'frontend\modules\tarifes\Module',
+        ],
+        'prices' => [
+            'class' => 'frontend\modules\prices\Module',
+        ],
+        'car-photos' => [
+            'class' => 'frontend\modules\carPhotos\Module',
+        ],
+        'cars' => [
+            'class' => 'frontend\modules\cars\Module',
+        ],
+        'orders' => [
+            'class' => 'frontend\modules\orders\Module',
+        ],
     ],
     'components' => [
         'request' => [

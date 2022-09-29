@@ -6,6 +6,7 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "services".
@@ -43,6 +44,12 @@ class Services extends \yii\db\ActiveRecord
     {
         return 'services';
     }
+
+    public static function getList()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'name');
+    }
+
 
     public function behaviors()
     {

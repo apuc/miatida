@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "work_shifts".
@@ -14,6 +15,7 @@ use yii\db\ActiveRecord;
 class WorkShifts extends \yii\db\ActiveRecord
 {
     public $prettyDate;
+
     /**
      * {@inheritdoc}
      */
@@ -56,9 +58,15 @@ class WorkShifts extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getList()
+    {
+        return ArrayHelper::map(self::find()->all(), 'id', 'prettyDate');
+    }
+
     public function afterFind()
     {
         parent::afterFind();
         $this->prettyDate = date("d-m-Y", $this->date);
     }
 }
+
