@@ -66,7 +66,7 @@ class Cars extends \yii\db\ActiveRecord
     {
         return [
             [['body_type_id', 'client_id', 'status', 'created_at', 'updated_at','photo_id'], 'integer'],
-            [['photo_id', 'client_id'], 'required'],
+            [['photo_id', 'client_id', 'body_type_id'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['body_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => BodyTypes::class, 'targetAttribute' => ['body_type_id' => 'id']],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::class, 'targetAttribute' => ['client_id' => 'id']],

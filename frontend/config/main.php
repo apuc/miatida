@@ -33,9 +33,9 @@ return [
         'prices' => [
             'class' => 'frontend\modules\prices\Module',
         ],
-        'car-photos' => [
-            'class' => 'frontend\modules\carPhotos\Module',
-        ],
+//        'car-photos' => [
+//            'class' => 'frontend\modules\carPhotos\Module',
+//        ],
         'cars' => [
             'class' => 'frontend\modules\cars\Module',
         ],
