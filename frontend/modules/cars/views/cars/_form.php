@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="cars-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -20,13 +20,11 @@ use yii\widgets\ActiveForm;
         $params = [
             'prompt' => 'Выберите кузов...'
         ]
-    )
+    );
+    $photoModel = new \common\models\CarPhotos;
     ?>
 
-<!--    --><?//= $form->field($model, 'photo_id')->radioList(); ?>
-    <?= $form->field($model, 'photo_id')->radioList(
-        \common\models\CarPhotos::getList())
-    ?>
+    <?= $form->field($photoModel, 'path')->fileInput() ?>
 
     <?= $form->field($model, 'client_id')->dropDownList(
         \common\models\Clients::getList(),

@@ -65,7 +65,7 @@ class Cars extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['body_type_id', 'photo_id', 'client_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['body_type_id', 'client_id', 'status', 'created_at', 'updated_at','photo_id'], 'integer'],
             [['photo_id', 'client_id'], 'required'],
             [['name'], 'string', 'max' => 255],
             [['body_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => BodyTypes::class, 'targetAttribute' => ['body_type_id' => 'id']],

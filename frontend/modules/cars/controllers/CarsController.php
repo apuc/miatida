@@ -2,11 +2,14 @@
 
 namespace frontend\modules\cars\controllers;
 
+use frontend\modules\carPhotos\models\CarPhotos;
 use frontend\modules\cars\models\Cars;
 use frontend\modules\cars\models\CarsSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CarsController implements the CRUD actions for Cars model.
@@ -68,18 +71,29 @@ class CarsController extends Controller
     public function actionCreate()
     {
         $model = new Cars();
+        $modelPhoto = new CarPhotos();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            $model->load(Yii::$app->request->post());
+            $model->photo_id = $this->uploadFile($modelPhoto);
+            if  ($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
+            }else {
             $model->loadDefaultValues();
+            }
         }
 
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function uploadFile($file)
+    {
+        $file->path = UploadedFile::getInstance($file, 'path');
+        $file->path->saveAs("@frontend/web/images/cars/{$file->path->baseName}.{$file->path->extension}");
+        $file->save(false);
+        return $file->id;
     }
 
     /**
