@@ -17,9 +17,12 @@ return [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
-            'identityClass' => 'common\models\User',
+            'class' => 'yii\web\User',
+            'identityClass' => 'andrewdanilov\adminpanel\models\User',
+            'accessChecker' => 'andrewdanilov\adminpanel\AccessChecker',
             'enableAutoLogin' => true,
             'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
+            'loginUrl' => ['user/login'],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the backend
@@ -45,6 +48,12 @@ return [
             ],
         ],
         */
+    ],
+    'controllerMap' => [
+        'user' => [
+            'class' => 'andrewdanilov\adminpanel\controllers\UserController',
+            'viewPath' => '@backend/someotherlocation/views/user', // optional, custom UserController views location
+        ],
     ],
     'params' => $params,
 ];
