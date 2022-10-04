@@ -8,7 +8,7 @@ use yii\db\Migration;
  *
  * - `{{%user}}`
  */
-class m220929_102719_create_clients_table extends Migration
+class m220928_141719_create_clients_table extends Migration
 {
     /**
      * {@inheritdoc}
