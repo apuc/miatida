@@ -11,13 +11,18 @@ use andrewdanilov\adminpanel\widgets\Menu;
 <div class="page-left">
 	<div class="sidebar-heading"><?= $siteName ?></div>
 	<?= Menu::widget(['items' => [
-		['label' => 'Dashboard', 'url' => ['/site/index'], 'icon' => 'desktop'],
-		[],
-		['label' => 'Blog'],
-		['label' => 'News', 'url' => ['/news/index'], 'icon' => ['symbol' => 'newspaper', 'type' => 'regular']],
-		['label' => 'Articles', 'url' => ['/articles/index'], 'icon' => ['symbol' => 'newspaper', 'type' => 'solid']],
-		[],
 		['label' => 'System'],
 		['label' => 'Users', 'url' => ['/user/index'], 'icon' => 'users'],
+        ['label' => 'Modules'],
+		['label' => 'Body Types', 'url' => ['/body-types/body-types'], 'icon' => 'users'],
+//		['label' => 'Car photos', 'url' => ['/car-photos/car-photos'], 'icon' => 'users'],
+		['label' => 'Cars', 'url' => ['/cars/cars'], 'icon' => 'users'],
+		['label' => 'Clients', 'url' => ['/clients/clients'], 'icon' => 'users'],
+		['label' => 'Orders', 'url' => ['/orders/orders'], 'icon' => 'users'],
+		['label' => 'Prices', 'url' => ['/prices/prices'], 'icon' => 'users'],
+		['label' => 'Services', 'url' => ['/services/services'], 'icon' => 'users'],
+		['label' => 'Settings', 'url' => ['/settings/settings'], 'icon' => 'users'],
+		['label' => 'Tarifes', 'url' => ['/tarifes/tarifes'], 'icon' => 'users'],
+		['label' => 'Work shifts', 'url' => ['/work-shifts/work-shifts'], 'icon' => 'users'],
 	]]) ?>
 </div>
