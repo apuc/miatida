@@ -15,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\NotFoundHttpException;
 
 /**
  * Site controller
@@ -29,19 +30,28 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
+                        'allow'        => true,
+                        'actions'      => ['login'],
+                        'roles'        => ['@'],
+                        'denyCallback' => function () {
+                            throw new NotFoundHttpException();
+                        },
                     ],
                     [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
+                        'allow'         => true,
+                        'actions'       => ['index'],
+                        'roles'         => ['@'],
+                        'matchCallback' => function () {
+                            return (bool)Yii::$app->user->identity->is_admin;
+                        },
+                        'denyCallback'  => function () {
+                            throw new NotFoundHttpException();
+                        },
                     ],
-                ],
+
+            ],
             ],
             'verbs' => [
                 'class' => VerbFilter::class,
