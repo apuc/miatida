@@ -46,3 +46,6 @@ composer.lock
 
 frontend-access.log
 frontend-error.log
+
+frontend/web/images
+
