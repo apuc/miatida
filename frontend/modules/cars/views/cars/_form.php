@@ -1,5 +1,6 @@
 <?php
 
+use kartik\widgets\FileInput;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -24,7 +25,22 @@ use yii\widgets\ActiveForm;
     $photoModel = new \common\models\CarPhotos;
     ?>
 
-    <?= $form->field($photoModel, 'path')->fileInput() ?>
+    <?= $form->field($photoModel, 'path')->fileInput()->widget(FileInput::class, [
+        'pluginOptions' => [
+
+            'initialPreviewAsData' => $photoModel->path,
+            'overriteInitial' => true,
+            'showZoom' => true,
+            'showCaption' => false,
+            'showUpload' => false,
+            'showRemove' => true,
+            'showDetails' => true,
+            'browseClass' => 'btn btn-primary btn-block',
+            'browseIcon' => '<i class="fa fa-camera"></i> ',
+            'browseLabel' =>  'Выберите фото'
+        ],
+    ]); ?>
+
 
     <?= $form->field($model, 'client_id')->dropDownList(
         \common\models\Clients::getList(),
