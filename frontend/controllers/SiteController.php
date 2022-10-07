@@ -32,26 +32,26 @@ class SiteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'allow'        => true,
-                        'actions'      => ['login'],
-                        'roles'        => ['@'],
+                        'allow' => true,
+                        'actions' => ['login'],
+                        'roles' => ['@'],
                         'denyCallback' => function () {
                             throw new NotFoundHttpException();
                         },
                     ],
                     [
-                        'allow'         => true,
-                        'actions'       => ['index'],
-                        'roles'         => ['@'],
+                        'allow' => true,
+                        'actions' => ['index'],
+                        'roles' => ['@'],
                         'matchCallback' => function () {
                             return (bool)Yii::$app->user->identity->is_admin;
                         },
-                        'denyCallback'  => function () {
+                        'denyCallback' => function () {
                             throw new NotFoundHttpException();
                         },
                     ],
 
-            ],
+                ],
             ],
             'verbs' => [
                 'class' => VerbFilter::class,
@@ -227,8 +227,8 @@ class SiteController extends Controller
      * Verify email address
      *
      * @param string $token
-     * @throws BadRequestHttpException
      * @return yii\web\Response
+     * @throws BadRequestHttpException
      */
     public function actionVerifyEmail($token)
     {
