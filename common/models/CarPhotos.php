@@ -38,9 +38,10 @@ class CarPhotos extends \yii\db\ActiveRecord
         return ArrayHelper::map(self::find()->all(), 'id', 'path');
     }
 
-    public static function getItem()
+    public static function getItem($model)
     {
-        return ArrayHelper::getValue(self::getList(), key(self::getList()));
+        $item = CarPhotos::find()->select('path')->where(['id' => $model->photo_id])->one();
+        return $item->path;
     }
 
     /**

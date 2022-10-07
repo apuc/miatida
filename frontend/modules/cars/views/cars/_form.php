@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
 <div class="cars-form">
 
-    <?php $form = ActiveForm::begin(['options'=>['enctype'=>'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -27,18 +27,21 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($photoModel, 'path')->fileInput()->widget(FileInput::class, [
         'pluginOptions' => [
-
             'initialPreviewAsData' => $photoModel->path,
-            'overriteInitial' => true,
-            'showZoom' => true,
+            'showZoom' => false,
+            'initialPreview' => [
+            $model->photo != null ? Html::img('@web/images/cars/' . $model->photo->path, ['class' => 'file-preview-image']):null,
+            ],
+            'overwriteInitial' => true,
             'showCaption' => false,
             'showUpload' => false,
             'showRemove' => true,
             'showDetails' => true,
             'browseClass' => 'btn btn-primary btn-block',
             'browseIcon' => '<i class="fa fa-camera"></i> ',
-            'browseLabel' =>  'Выберите фото'
+            'browseLabel' => 'Выберите фото',
         ],
+
     ]); ?>
 
 
