@@ -1,6 +1,8 @@
 <?php
 
 use yii\helpers\Html;
+use kartik\widgets\FileInput;
+
 
 /** @var yii\web\View $this */
 /** @var frontend\modules\cars\models\cars $model */
