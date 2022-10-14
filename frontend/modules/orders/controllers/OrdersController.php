@@ -2,6 +2,7 @@
 
 namespace frontend\modules\orders\controllers;
 
+use common\models\Cashbox;
 use frontend\modules\orders\models\Orders;
 use frontend\modules\orders\models\OrdersSearch;
 use yii\web\Controller;
@@ -70,7 +71,11 @@ class OrdersController extends Controller
         $model = new Orders();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
+            if ($model->load($this->request->post())) {
+                $cashBoxModel = $this->findDate(strtotime('today midnight'));
+                $cashBoxModel->revenue = $cashBoxModel->revenue + $model->price->price;
+                $model->save();
+                $cashBoxModel->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -80,6 +85,19 @@ class OrdersController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function findDate($date)
+    {
+        if (($cashBoxModel = Cashbox::findOne(['date' => $date])) !== null) {
+            return $cashBoxModel;
+        }else{
+            $cashBoxModel = new Cashbox;
+            $cashBoxModel->date = $date;
+            $cashBoxModel->save();
+            return $cashBoxModel;
+        }
+
     }
 
     /**
@@ -96,7 +114,6 @@ class OrdersController extends Controller
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
