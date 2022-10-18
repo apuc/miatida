@@ -10,6 +10,7 @@ $params = array_merge(
 );
 
 return [
+
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -17,261 +18,40 @@ return [
     'modules' => [
         'clients' => [
             'class' => 'frontend\modules\clients\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['clients/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'clients/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
         'services' => [
             'class' => 'frontend\modules\services\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['services/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'services/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
         'settings' => [
             'class' => 'frontend\modules\settings\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['settings/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'settings/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
         'body-types' => [
             'class' => 'frontend\modules\bodyTypes\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['body-types/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'body-types/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
         'work-shifts' => [
             'class' => 'frontend\modules\workShifts\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['work-shifts/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'work-shifts/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
         'tarifes' => [
             'class' => 'frontend\modules\tarifes\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['tarifes/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'tarifes/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
         'prices' => [
             'class' => 'frontend\modules\prices\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['prices/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'prices/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
         'cars' => [
             'class' => 'frontend\modules\cars\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['cars/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'cars/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
         'orders' => [
             'class' => 'frontend\modules\orders\Module',
-            'as access' => [
-                'class' => 'yii\filters\AccessControl',
-                'only' => ['orders/*', 'default/index'],
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['user/login'],
-                        'roles' => ['?'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['index', 'orders/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
-                    ],
-                ]
-            ],
         ],
     ],
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+        ],
+
         'view' => [
             'theme' => [
                 'pathMap' => [
@@ -279,6 +59,7 @@ return [
                 ],
             ],
         ],
+
         'user' => [
             'class' => 'yii\web\User',
             'identityClass' => 'andrewdanilov\adminpanel\models\User',

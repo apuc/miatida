@@ -33,7 +33,7 @@ class SiteController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['login'],
+                        'actions' => ['login', 'role-super-admin', 'role-admin', 'role-client', 'role-washer', 'error'],
                         'roles' => ['@'],
                         'denyCallback' => function () {
                             throw new NotFoundHttpException();
@@ -41,11 +41,8 @@ class SiteController extends Controller
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index'],
-                        'roles' => ['@'],
-                        'matchCallback' => function () {
-                            return (bool)Yii::$app->user->identity->is_admin;
-                        },
+                        'actions' => ['index', 'error'],
+                        'roles' => ['admin', 'superAdmin'],
                         'denyCallback' => function () {
                             throw new NotFoundHttpException();
                         },
@@ -60,6 +57,30 @@ class SiteController extends Controller
                 ],
             ],
         ];
+    }
+
+    public function actionRoleSuperAdmin()
+    {
+        $userRole = Yii::$app->authManager->getRole('superAdmin');
+        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
+    }
+
+    public function actionRoleAdmin()
+    {
+        $userRole = Yii::$app->authManager->getRole('admin');
+        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
+    }
+
+    public function actionRoleWasher()
+    {
+        $userRole = Yii::$app->authManager->getRole('washer');
+        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
+    }
+
+    public function actionRoleClient()
+    {
+        $userRole = Yii::$app->authManager->getRole('client');
+        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
     }
 
     /**
