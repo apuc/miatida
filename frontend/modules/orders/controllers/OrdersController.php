@@ -3,6 +3,7 @@
 namespace frontend\modules\orders\controllers;
 
 use common\models\Cashbox;
+use common\models\Salary;
 use frontend\modules\orders\models\Orders;
 use frontend\modules\orders\models\OrdersSearch;
 use yii\web\Controller;
@@ -74,17 +75,32 @@ class OrdersController extends Controller
             if ($model->load($this->request->post())) {
                 $cashBoxModel = $this->findDate(strtotime('today midnight'));
                 $cashBoxModel->revenue = $cashBoxModel->revenue + $model->price->price;
+                $salaryModel = $this->findWasher($model->user_id);
+                $salaryModel->salary = $salaryModel->salary + $model->price->washer_salary;
                 $model->save();
                 $cashBoxModel->save();
+                $salaryModel->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
             $model->loadDefaultValues();
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    public function findWasher($id)
+    {
+        if (($salaryModel = Salary::findOne(['user_id' => $id])) !== null) {
+            return $salaryModel;
+        }else{
+            $salaryModel = new Salary();
+            $salaryModel->user_id = $id;
+            $salaryModel->save();
+            return $salaryModel;
+        }
+
     }
 
     public function findDate($date)

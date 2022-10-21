@@ -34,6 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Дата'
             ],
             [
+                'attribute' => 'user_id',
+                'value' => function($model){
+                    return $model->user->username;
+                }
+            ],
+            [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, WorkShifts $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);

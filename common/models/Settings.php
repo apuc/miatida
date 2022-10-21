@@ -21,6 +21,10 @@ class Settings extends \yii\db\ActiveRecord
         return 'settings';
     }
 
+    public static function findKeyValue ($key){
+        return self::find()->select('value')->where(['key' => $key])->one()['value'];
+    }
+
     /**
      * {@inheritdoc}
      */

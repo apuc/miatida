@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'user_id')->dropDownList(
         \common\models\User::getList(),
         $params = [
-            'prompt' => 'Выберите пользователя...'
+            'prompt' => 'Выберите мойщика...',
         ]
     ) ?>
 

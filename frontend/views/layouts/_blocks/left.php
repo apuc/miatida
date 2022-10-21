@@ -11,18 +11,18 @@ use andrewdanilov\adminpanel\widgets\Menu;
 <div class="page-left">
 	<div class="sidebar-heading"><?= $siteName ?></div>
 	<?= Menu::widget(['items' => [
-		['label' => 'System'],
-		['label' => 'Users', 'url' => ['/user/index'], 'icon' => 'users'],
-        ['label' => 'Modules'],
-		['label' => 'Body Types', 'url' => ['/body-types/body-types'], 'icon' => 'users'],
+		['label' => 'Приложение'],
+		['label' => 'Пользователи', 'url' => ['/user/index'], 'icon' => 'users'],
+        ['label' => 'Модули'],
+		['label' => 'Типы кузова', 'url' => ['/body-types/body-types'], 'icon' => 'users'],
 //		['label' => 'Car photos', 'url' => ['/car-photos/car-photos'], 'icon' => 'users'],
-		['label' => 'Cars', 'url' => ['/cars/cars'], 'icon' => 'users'],
-		['label' => 'Clients', 'url' => ['/clients/clients'], 'icon' => 'users'],
-		['label' => 'Orders', 'url' => ['/orders/orders'], 'icon' => 'users'],
+		['label' => 'Машины', 'url' => ['/cars/cars'], 'icon' => 'users'],
+		['label' => 'Клиенты', 'url' => ['/clients/clients'], 'icon' => 'users'],
+		['label' => 'Заказы', 'url' => ['/orders/orders'], 'icon' => 'users'],
 		['label' => 'Prices', 'url' => ['/prices/prices'], 'icon' => 'users'],
-		['label' => 'Services', 'url' => ['/services/services'], 'icon' => 'users'],
-		['label' => 'Settings', 'url' => ['/settings/settings'], 'icon' => 'users'],
-		['label' => 'Tarifes', 'url' => ['/tarifes/tarifes'], 'icon' => 'users'],
-		['label' => 'Work shifts', 'url' => ['/work-shifts/work-shifts'], 'icon' => 'users'],
+		['label' => 'Услуги', 'url' => ['/services/services'], 'icon' => 'users'],
+		['label' => 'Настройки', 'url' => ['/settings/settings'], 'icon' => 'users'],
+		['label' => 'Тарифы', 'url' => ['/tarifes/tarifes'], 'icon' => 'users'],
+		['label' => 'Рабочии смены', 'url' => ['/work-shifts/work-shifts'], 'icon' => 'users'],
 	]]) ?>
 </div>

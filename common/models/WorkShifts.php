@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property int $id
  * @property int|null $date
+ * @property int|null $user_id
  */
 class WorkShifts extends \yii\db\ActiveRecord
 {
@@ -44,6 +45,7 @@ class WorkShifts extends \yii\db\ActiveRecord
     {
         return [
             [['date'], 'string'],
+            [['date', 'user_id',], 'required'],
         ];
     }
 
@@ -55,12 +57,19 @@ class WorkShifts extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'Дата',
+            'user_id' => 'Пользователь',
+            'salary' => 'зарплата',
         ];
     }
 
     public static function getList()
     {
         return ArrayHelper::map(self::find()->all(), 'id', 'prettyDate');
+    }
+
+    public function getUser(): \yii\db\ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     public function afterFind()

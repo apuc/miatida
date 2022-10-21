@@ -2,6 +2,7 @@
 
 namespace frontend\modules\prices\controllers;
 
+use common\models\Settings;
 use frontend\modules\prices\models\Prices;
 use frontend\modules\prices\models\PricesSearch;
 use yii\web\Controller;
@@ -68,11 +69,11 @@ class PricesController extends Controller
     public function actionCreate()
     {
         $model = new Prices();
-
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            $model->load($this->request->post());
+            $model->washer_salary = $model->price * (Settings::findKeyValue('salaryWasher') / 100);
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             $model->loadDefaultValues();
         }
@@ -89,7 +90,8 @@ class PricesController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public
+    function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
@@ -109,7 +111,8 @@ class PricesController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
@@ -123,7 +126,8 @@ class PricesController extends Controller
      * @return Prices the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Prices::findOne(['id' => $id])) !== null) {
             return $model;

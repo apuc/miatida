@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
  * @property int $services_id
  * @property int $tarif_id
  * @property int $body_type_id
+ * @property int $washer_salary
  * @property int|null $price
  *
  * @property BodyTypes $bodyType
@@ -54,6 +55,7 @@ class Prices extends \yii\db\ActiveRecord
             'tarif_id' => 'Тариф',
             'body_type_id' => 'Кузов',
             'price' => 'Стоимость',
+            'washer_salary' => 'Зарплата мойщику'
         ];
     }
 

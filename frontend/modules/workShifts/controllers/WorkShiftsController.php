@@ -2,6 +2,7 @@
 
 namespace frontend\modules\workShifts\controllers;
 
+use common\models\Salary;
 use frontend\modules\workShifts\models\WorkShifts;
 use frontend\modules\workShifts\models\WorkShiftsSearch;
 use yii\web\Controller;
@@ -70,9 +71,9 @@ class WorkShiftsController extends Controller
         $model = new WorkShifts();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
+            $model->load($this->request->post());
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             $model->loadDefaultValues();
         }

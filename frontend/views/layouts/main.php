@@ -11,7 +11,7 @@ AdminPanelAsset::register($this);
 if (isset(Yii::$app->params['siteName'])) {
 	$siteName = Yii::$app->params['siteName'];
 } else {
-	$siteName = 'AdminPanel';
+	$siteName = 'Админ';
 }
 if (isset(Yii::$app->user->identity['username'])) {
 	$userName = Yii::$app->user->identity['username'];

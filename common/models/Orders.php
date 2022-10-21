@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "orders".
@@ -38,6 +39,18 @@ class Orders extends \yii\db\ActiveRecord
     {
         return 'orders';
     }
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => 'yii\behaviors\TimestampBehavior',
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
 
     public static function getStatusLabel()
     {
@@ -59,6 +72,7 @@ class Orders extends \yii\db\ActiveRecord
             [['price_id'], 'exist', 'skipOnError' => true, 'targetClass' => Prices::class, 'targetAttribute' => ['price_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['work_shift_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkShifts::class, 'targetAttribute' => ['work_shift_id' => 'id']],
+            [['user_id', 'client_id', 'price_id', 'car_id', 'work_shift_id', 'status'], 'required']
         ];
     }
 
@@ -69,7 +83,7 @@ class Orders extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'Пользователь',
+            'user_id' => 'Мойщик',
             'client_id' => 'Клиент',
             'price_id' => 'Стоимость',
             'car_id' => 'Машина',

@@ -100,8 +100,8 @@ return [
     ],
     'controllerMap' => [
         'user' => [
-            'class' => 'andrewdanilov\adminpanel\controllers\UserController',
-            'viewPath' => '@backend/someotherlocation/views/user', // optional, custom UserController views location
+            'class' => 'frontend\controllers\UserController',
+            'viewPath' => '@frontend/views/user', // optional, custom UserController views location
         ],
     ],
     'params' => $params,

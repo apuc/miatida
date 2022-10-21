@@ -11,7 +11,6 @@ if ($model->isNewRecord) {
 	$this->title = 'Редактирование пользователя ' . $model->username;
 }
 ?>
-
 <?php $form = \yii\widgets\ActiveForm::begin() ?>
 
 <?= $form->field($model, 'username')->textInput() ?>
@@ -22,7 +21,7 @@ if ($model->isNewRecord) {
 
 <?= $form->field($model, 'status')->dropDownList(User::getStatuses()) ?>
 
-<?= $form->field($model, 'is_admin')->dropDownList(['Нет', 'Да']) ?>
+<?= $form->field($model, 'role')->dropDownList(\common\models\User::getRolesList()) ?>
 
 <?= \yii\helpers\Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
 

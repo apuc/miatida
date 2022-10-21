@@ -59,30 +59,6 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionRoleSuperAdmin()
-    {
-        $userRole = Yii::$app->authManager->getRole('superAdmin');
-        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
-    }
-
-    public function actionRoleAdmin()
-    {
-        $userRole = Yii::$app->authManager->getRole('admin');
-        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
-    }
-
-    public function actionRoleWasher()
-    {
-        $userRole = Yii::$app->authManager->getRole('washer');
-        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
-    }
-
-    public function actionRoleClient()
-    {
-        $userRole = Yii::$app->authManager->getRole('client');
-        Yii::$app->authManager->assign($userRole, Yii::$app->user->getId());
-    }
-
     /**
      * {@inheritdoc}
      */
