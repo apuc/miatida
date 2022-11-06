@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "salary".
@@ -15,9 +16,11 @@ use Yii;
  */
 class Salary extends \yii\db\ActiveRecord
 {
+    public $payment;
     /**
      * {@inheritdoc}
      */
+
     public static function tableName()
     {
         return 'salary';
@@ -29,11 +32,13 @@ class Salary extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id'], 'required'],
-            [['user_id', 'salary'], 'integer'],
+            [['user_id', 'payment', 'salary'], 'required'],
+            [['payment','salary'], 'integer'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
+
+
 
     /**
      * {@inheritdoc}
@@ -42,8 +47,9 @@ class Salary extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'salary' => 'Зарплата',
+            'user_id' => 'Мойщик',
+            'salary' => 'Заработано',
+            'payment' => 'Выплатить'
         ];
     }
 

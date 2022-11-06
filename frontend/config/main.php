@@ -19,6 +19,15 @@ return [
         'clients' => [
             'class' => 'frontend\modules\clients\Module',
         ],
+        'cash-box' => [
+            'class' => 'frontend\modules\cashBox\Module',
+        ],
+        'salary' => [
+            'class' => 'frontend\modules\Salary\Module',
+        ],
+        'payment-salary' => [
+            'class' => 'frontend\modules\paymentSalary\Module',
+        ],
         'services' => [
             'class' => 'frontend\modules\services\Module',
         ],

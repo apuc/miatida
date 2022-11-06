@@ -4,26 +4,24 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "work_shifts".
+ * This is the model class for table "cashbox".
  *
  * @property int $id
  * @property int|null $date
- * @property int|null $user_id
+ * @property int|null $revenue
  */
-class WorkShifts extends \yii\db\ActiveRecord
+class CashBox extends \yii\db\ActiveRecord
 {
+    /**
+     * @var false|string
+     */
     public $prettyDate;
 
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
-        return 'work_shifts';
-    }
 
     public function behaviors()
     {
@@ -32,10 +30,14 @@ class WorkShifts extends \yii\db\ActiveRecord
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['date'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date'],
                 ],
             ],
         ];
+    }
+
+    public static function tableName()
+    {
+        return 'cashbox';
     }
 
     /**
@@ -44,8 +46,7 @@ class WorkShifts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date'], 'string'],
-            [['date', 'user_id',], 'required'],
+            [['date', 'revenue'], 'integer'],
         ];
     }
 
@@ -57,25 +58,12 @@ class WorkShifts extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'date' => 'Дата',
-            'user_id' => 'Мойщик',
-            'salary' => 'зарплата',
+            'revenue' => 'Прибыль',
         ];
     }
-
-    public static function getList()
-    {
-        return ArrayHelper::map(self::find()->all(), 'id', 'prettyDate');
-    }
-
-    public function getUser(): \yii\db\ActiveQuery
-    {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
-    }
-
     public function afterFind()
     {
         parent::afterFind();
         $this->prettyDate = date("d-m-Y", $this->date);
     }
 }
-

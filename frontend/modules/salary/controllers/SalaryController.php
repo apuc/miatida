@@ -1,18 +1,17 @@
 <?php
 
-namespace frontend\modules\prices\controllers;
+namespace frontend\modules\salary\controllers;
 
-use common\models\Settings;
-use frontend\modules\prices\models\Prices;
-use frontend\modules\prices\models\PricesSearch;
+use frontend\modules\salary\models\Salary;
+use frontend\modules\salary\models\SalarySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * PricesController implements the CRUD actions for Prices model.
+ * SalaryController implements the CRUD actions for Salary model.
  */
-class PricesController extends Controller
+class SalaryController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,13 +32,13 @@ class PricesController extends Controller
     }
 
     /**
-     * Lists all Prices models.
+     * Lists all Salary models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PricesSearch();
+        $searchModel = new SalarySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -49,7 +48,7 @@ class PricesController extends Controller
     }
 
     /**
-     * Displays a single Prices model.
+     * Displays a single Salary model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -62,21 +61,18 @@ class PricesController extends Controller
     }
 
     /**
-     * Creates a new Prices model.
+     * Creates a new Salary model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Prices();
+        $model = new Salary();
+
         if ($this->request->isPost) {
-            $model->load($this->request->post());
-            if ($model->washer_salary == NULL){
-                $model->washer_salary = $model->price * (Settings::findKeyValue('salaryWasher') / 100);
-                $model->washer_salary = ceil($model->washer_salary);
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
             }
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             $model->loadDefaultValues();
         }
@@ -87,19 +83,21 @@ class PricesController extends Controller
     }
 
     /**
-     * Updates an existing Prices model.
+     * Updates an existing Salary model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public
-    function actionUpdate($id)
+    public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $this->payment($model->payment, $model->user_id);
+            $model->salary = $model->salary - $model->payment;
+            $model->save();
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [
@@ -107,15 +105,23 @@ class PricesController extends Controller
         ]);
     }
 
+    public function payment($payment, $user_id){
+        $paymentModel = new \common\models\PaymentSalary;
+        $paymentModel->payment = $payment;
+        $paymentModel->date = time();
+        $paymentModel->user_id = $user_id;
+        $paymentModel->save();
+    }
+
+
     /**
-     * Deletes an existing Prices model.
+     * Deletes an existing Salary model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public
-    function actionDelete($id)
+    public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
@@ -123,16 +129,15 @@ class PricesController extends Controller
     }
 
     /**
-     * Finds the Prices model based on its primary key value.
+     * Finds the Salary model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Prices the loaded model
+     * @return Salary the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected
-    function findModel($id)
+    protected function findModel($id)
     {
-        if (($model = Prices::findOne(['id' => $id])) !== null) {
+        if (($model = Salary::findOne(['id' => $id])) !== null) {
             return $model;
         }
 

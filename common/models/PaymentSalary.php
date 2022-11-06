@@ -4,26 +4,24 @@ namespace common\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "work_shifts".
+ * This is the model class for table "payment_salary".
  *
  * @property int $id
+ * @property int $user_id
  * @property int|null $date
- * @property int|null $user_id
+ * @property int|null $payment
+ *
+ * @property User $user
  */
-class WorkShifts extends \yii\db\ActiveRecord
+class PaymentSalary extends \yii\db\ActiveRecord
 {
+    /**
+     * @var false|string
+     */
     public $prettyDate;
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'work_shifts';
-    }
 
     public function behaviors()
     {
@@ -32,7 +30,6 @@ class WorkShifts extends \yii\db\ActiveRecord
                 'class' => 'yii\behaviors\TimestampBehavior',
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['date'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date'],
                 ],
             ],
         ];
@@ -41,11 +38,20 @@ class WorkShifts extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    public static function tableName()
+    {
+        return 'payment_salary';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function rules()
     {
         return [
-            [['date'], 'string'],
-            [['date', 'user_id',], 'required'],
+            [['user_id'], 'required'],
+            [['user_id', 'date', 'payment'], 'integer'],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -56,26 +62,25 @@ class WorkShifts extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'date' => 'Дата',
             'user_id' => 'Мойщик',
-            'salary' => 'зарплата',
+            'date' => 'Дата',
+            'payment' => 'Выплата',
         ];
     }
 
-    public static function getList()
-    {
-        return ArrayHelper::map(self::find()->all(), 'id', 'prettyDate');
-    }
-
-    public function getUser(): \yii\db\ActiveQuery
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
-
+    
     public function afterFind()
     {
         parent::afterFind();
-        $this->prettyDate = date("d-m-Y", $this->date);
+        $this->prettyDate = date("d-m-Y H:i", $this->date);
     }
 }
-
