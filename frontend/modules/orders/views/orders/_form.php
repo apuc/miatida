@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
 
     <?= $form->field($model, 'user_id')->dropDownList(
-        \common\models\User::getList(),
+        \common\models\User::getListWasher(),
         $params = [
             'prompt' => 'Выберите мойщика...',
         ]

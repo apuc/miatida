@@ -1,23 +1,20 @@
 <?php
 
-use frontend\modules\workShifts\models\WorkShifts;
+use frontend\modules\salary\models\Salary;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var frontend\modules\workShifts\models\WorkShiftsSearch $searchModel */
+/** @var frontend\modules\salary\models\SalarySearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Рабочии смены';
+$this->title = 'Зарплата';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="work-shifts-index">
+<div class="salary-index">
 
-    <p>
-        <?= Html::a('Создать смену', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -29,23 +26,26 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             [
-                'attribute' => 'date',
-                'value' => function($model){
-                    return $model->prettyDate;
-                }
-            ],
-            [
                 'attribute' => 'user_id',
                 'value' => function($model){
-                    return $model->user->username ?? null;
+                    return $model->user->username;
                 }
             ],
+            'salary',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, WorkShifts $model, $key, $index, $column) {
+                'template'=>'{pay}',
+                'buttons' => [
+                    'pay' => function ($url,$model,$key) {
+                        return Html::a('Заплатить', array('update', 'id'=> $model->id), ['class' => 'btn btn-success btn-xs']);
+                    },
+                ],
+                'urlCreator' => function ($action, Salary $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
             ],
         ],
     ]); ?>
+
+
 </div>

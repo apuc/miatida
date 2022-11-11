@@ -35,6 +35,7 @@ class Prices extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['washer_salary'], 'integer'],
             [['services_id', 'tarif_id', 'body_type_id'], 'required'],
             [['services_id', 'tarif_id', 'body_type_id', 'price'], 'integer'],
             [['body_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => BodyTypes::class, 'targetAttribute' => ['body_type_id' => 'id']],

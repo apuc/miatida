@@ -2,7 +2,7 @@
 
 namespace frontend\modules\orders\controllers;
 
-use common\models\Cashbox;
+use common\models\CashBox;
 use common\models\Salary;
 use frontend\modules\orders\models\Orders;
 use frontend\modules\orders\models\OrdersSearch;
@@ -105,10 +105,10 @@ class OrdersController extends Controller
 
     public function findDate($date)
     {
-        if (($cashBoxModel = Cashbox::findOne(['date' => $date])) !== null) {
+        if (($cashBoxModel = CashBox::findOne(['date' => $date])) !== null) {
             return $cashBoxModel;
         }else{
-            $cashBoxModel = new Cashbox;
+            $cashBoxModel = new CashBox;
             $cashBoxModel->date = $date;
             $cashBoxModel->save();
             return $cashBoxModel;
