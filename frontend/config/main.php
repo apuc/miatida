@@ -56,6 +56,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'baseUrl' => '',
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
