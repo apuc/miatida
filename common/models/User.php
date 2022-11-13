@@ -24,10 +24,12 @@ use yii\web\IdentityInterface;
  * @property integer $created_at
  * @property integer $updated_at
  * @property string $password write-only password
+ * @property string $_password
  */
 class User extends ActiveRecord implements IdentityInterface
 {
     public $role;
+    public $_password;
 
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -92,9 +94,24 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['username', 'email'], 'required'],
+            [['username', 'email', '_password'], 'string'],
+            [['is_admin'], 'boolean'],
             [['role'], 'string'],
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+        ];
+    }
+
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'email' => 'E-mail',
+            'password' => 'Пароль',
+            '_password' => 'Пароль',
+            'status' => 'Статус',
+            'is_admin' => 'Админ',
         ];
     }
 
@@ -266,6 +283,18 @@ class User extends ActiveRecord implements IdentityInterface
     public function getPassword()
     {
         return '';
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($this->_password) {
+            $this->setPassword($this->_password);
+            $this->generateAuthKey();
+        } elseif ($insert) {
+            $this->addError('password', 'Не допускается использование пустого пароля');
+            return false;
+        }
+        return parent::beforeSave($insert);
     }
 
 }
