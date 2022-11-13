@@ -32,7 +32,7 @@ class Salary extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'payment', 'salary'], 'required'],
+            [['user_id', 'salary'], 'required'],
             [['payment','salary'], 'integer'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
