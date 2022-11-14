@@ -23,7 +23,7 @@ return [
             'class' => 'frontend\modules\cashBox\Module',
         ],
         'salary' => [
-            'class' => 'frontend\modules\Salary\Module',
+            'class' => 'frontend\modules\salary\Module',
         ],
         'payment-salary' => [
             'class' => 'frontend\modules\paymentSalary\Module',
@@ -56,6 +56,7 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'baseUrl' => '',
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',

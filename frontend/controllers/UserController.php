@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use andrewdanilov\adminpanel\controllers\BackendController;
+use common\services\RoleService;
 use Yii;
 use yii\web\Response;
 use common\models\User;
@@ -74,21 +75,9 @@ class UserController extends BackendController
 		} else {
 			$model = User::findOne(['id' => $id]);
 		}
+
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            switch ($model->role) {
-                case 'superAdmin':
-                    RolesController::roleSuperAdmin($model->id);
-                    break;
-                case 'admin':
-                    RolesController::roleAdmin($model->id);
-                    break;
-                case 'client':
-                    RolesController::roleClient($model->id);
-                    break;
-                case 'washer':
-                    RolesController::roleWasher($model->id);
-                    break;
-            }
+            RoleService::setRole($model->id, $model->role);
 			return $this->redirect(['index']);
 		}
 		return $this->render('update', ['model' => $model]);

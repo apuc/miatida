@@ -4,7 +4,7 @@ use yii\db\Migration;
 /**
  * Handles the creation of table `{{%work_shifts}}`.
  */
-class m221019_201922_create_work_shifts_table extends Migration
+class m221019_171922_create_work_shifts_table extends Migration
 {
     /**
      * {@inheritdoc}

@@ -100,21 +100,21 @@ class m220929_092913_create_orders_table extends Migration
         );
 
         // creates index for column `work_shift_id`
-        $this->createIndex(
-            '{{%idx-orders-work_shift_id}}',
-            '{{%orders}}',
-            'work_shift_id'
-        );
-
-        // add foreign key for table `{{%work_shifts}}`
-        $this->addForeignKey(
-            '{{%fk-orders-work_shift_id}}',
-            '{{%orders}}',
-            'work_shift_id',
-            '{{%work_shifts}}',
-            'id',
-            'CASCADE'
-        );
+//        $this->createIndex(
+//            '{{%idx-orders-work_shift_id}}',
+//            '{{%orders}}',
+//            'work_shift_id'
+//        );
+//
+//        // add foreign key for table `{{%work_shifts}}`
+//        $this->addForeignKey(
+//            '{{%fk-orders-work_shift_id}}',
+//            '{{%orders}}',
+//            'work_shift_id',
+//            '{{%work_shifts}}',
+//            'id',
+//            'CASCADE'
+//        );
     }
 
     /**
