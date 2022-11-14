@@ -19,10 +19,7 @@ use andrewdanilov\adminpanel\models\UserSearch;
     'filterModel' => $searchModel,
     'dataProvider' => $dataProvider,
     'columns' => [
-        [
-            'attribute' => 'id',
-            'headerOptions' => ['width' => 100],
-        ],
+        ['class' => 'yii\grid\SerialColumn'],
 
         'username',
         'email',
