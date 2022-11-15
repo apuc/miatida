@@ -10,14 +10,14 @@ use yii\grid\GridView;
 /** @var frontend\modules\bodyTypes\models\BodyTypesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Кузовы';
+$this->title = 'Категории автомобилей';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="body-types-index">
 
 
     <p>
-        <?= Html::a('Добавить кузов', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить категорию автомобиля', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

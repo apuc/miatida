@@ -54,7 +54,7 @@ class Prices extends \yii\db\ActiveRecord
             'id' => 'ID',
             'services_id' => 'Услуги',
             'tarif_id' => 'Тариф',
-            'body_type_id' => 'Кузов',
+            'body_type_id' => 'Категория авто',
             'price' => 'Стоимость',
             'washer_salary' => 'Зарплата мойщику'
         ];

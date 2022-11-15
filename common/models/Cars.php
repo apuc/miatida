@@ -82,7 +82,7 @@ class Cars extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Название',
-            'body_type_id' => 'Кузов',
+            'body_type_id' => 'Категория авто',
             'photo_id' => 'Фото',
             'client_id' => 'Клиент',
             'status' => 'Статус',

@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'body_type_id')->dropDownList(
         \common\models\BodyTypes::getList(),
         $params = [
-            'prompt' => 'Выберите тип кузова...'
+            'prompt' => 'Выберите категорию авто...'
         ]
     )?>
 

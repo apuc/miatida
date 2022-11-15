@@ -15,7 +15,7 @@ use andrewdanilov\adminpanel\widgets\Menu;
         ['label' => 'Настройки', 'url' => ['/settings/settings'], 'icon' => 'users'],
         ['label' => 'Пользователи', 'url' => ['/user/index'], 'icon' => 'users'],
         ['label' => 'Модули'],
-		['label' => 'Типы кузова', 'url' => ['/body-types/body-types'], 'icon' => 'users'],
+		['label' => 'Категория автомобиля', 'url' => ['/body-types/body-types'], 'icon' => 'users'],
 //		['label' => 'Car photos', 'url' => ['/car-photos/car-photos'], 'icon' => 'users'],
 		['label' => 'Машины', 'url' => ['/cars/cars'], 'icon' => 'users'],
 		['label' => 'Клиенты', 'url' => ['/clients/clients'], 'icon' => 'users'],
