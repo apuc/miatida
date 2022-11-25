@@ -26,10 +26,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'user_id',
                 'value' => function($model){
-                    return $model->user->username;
+                    return \common\models\Washer::getWasherName($model->user->id);
                 }
             ],
-            'payment',
+            [
+                'attribute' => 'payment',
+                'value' => function ($model) {
+                    return Html::a($model->payment, array('view',  'id' => $model['user_id']));
+                },
+                'format' => 'raw',
+            ],
             [
                 'attribute'=>'date',
                 'value' => function($model){

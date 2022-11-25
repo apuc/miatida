@@ -43,7 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->bodyType->name
             ],
             'price',
-            'washer_salary',
 
         ],
     ]) ?>

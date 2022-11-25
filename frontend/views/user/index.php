@@ -8,7 +8,7 @@ $this->title = 'Пользователи';
 
 use yii\grid\GridView;
 use andrewdanilov\adminpanel\models\User;
-use andrewdanilov\adminpanel\models\UserSearch;
+use frontend\models\UserSearch;
 
 ?>
 
@@ -23,6 +23,13 @@ use andrewdanilov\adminpanel\models\UserSearch;
 
         'username',
         'email',
+        [
+            'attribute' => 'phone',
+            'label' => 'Телефон',
+            'value' => function(User $model) {
+                return $model->phone;
+            }
+        ],
         [
             'attribute' => 'status',
             'value' => function(User $model) {

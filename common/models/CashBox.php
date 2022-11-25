@@ -18,22 +18,12 @@ class CashBox extends \yii\db\ActiveRecord
      * @var false|string
      */
     public $prettyDate;
+    public $revenueAdd;
 
     /**
      * {@inheritdoc}
      */
 
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['date'],
-                ],
-            ],
-        ];
-    }
 
     public static function tableName()
     {
@@ -46,7 +36,8 @@ class CashBox extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'revenue'], 'integer'],
+            [['revenue', 'revenueAdd'], 'integer'],
+            [['date'], 'required'],
         ];
     }
 
@@ -59,6 +50,7 @@ class CashBox extends \yii\db\ActiveRecord
             'id' => 'ID',
             'date' => 'Дата',
             'revenue' => 'Прибыль',
+            'revenueAdd' => 'Прибыль'
         ];
     }
     public function afterFind()

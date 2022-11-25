@@ -9,19 +9,15 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="clients-form">
-
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'user_id')->dropDownList(
-        \common\models\User::getList(),
-        $params = [
-            'prompt' => 'Выберите пользователя...'
-        ]
-    )?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
+
+    <?= $form->field($model, 'password')->textInput(['type' => 'password']) ?>
 
     <?= $form->field($model, 'additional_info')->textarea(['rows' => 6]) ?>
 

@@ -28,9 +28,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'user_id',
             'name',
             'phone',
+            [
+                'attribute' => 'car_id',
+                'value' => function($model){
+                    return \common\models\Clients::findCar($model->id);
+                }
+            ],
             'additional_info:ntext',
             [
                 'class' => ActionColumn::className(),

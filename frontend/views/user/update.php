@@ -17,7 +17,9 @@ if ($model->isNewRecord) {
 
 <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
 
-<?= $form->field($model, '_password')->textInput(['type' => 'password']) ?>
+<?= $form->field($model, 'phone')->textInput() ?>
+
+<?= $form->field($model, 'password')->textInput(['type' => 'password']) ?>
 
 <?= $form->field($model, 'status')->dropDownList(User::getStatuses()) ?>
 

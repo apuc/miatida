@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'user_id',
                 'value' => function($model){
-                    return $model->user->username ?? null;
+                    return \common\models\Washer::getWasherName($model->user->id);
                 }
             ],
             [

@@ -1,5 +1,6 @@
 <?php
 
+use dosamigos\multiselect\MultiSelect;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -13,12 +14,18 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'date')->input('date') ?>
-    <?= $form->field($model, 'user_id')->dropDownList(
-        \common\models\User::getListWasher(),
-        $params = [
-            'prompt' => 'Выберите мойщика...'
-        ]
-    ) ?>
+    <!--    \common\models\Washer::getList(),-->
+
+    <?= $form->field($model, 'user_id[]')->widget(MultiSelect::className(), [
+        'data' => \common\models\Washer::getList(),
+        'name' => 'bank',
+        'clientOptions' => ['maxHeight' => 300,
+            'buttonWidth' => '100%',
+
+        ],
+        'options' => ['multiple' => true]]);
+    ?>
+
     <?php
     $salaryModel = new \common\models\Salary();
     ?>

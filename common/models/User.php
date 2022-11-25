@@ -3,11 +3,7 @@
 namespace common\models;
 
 use Yii;
-use yii\base\NotSupportedException;
-use yii\behaviors\TimestampBehavior;
-use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
-use yii\web\IdentityInterface;
 
 /**
  * User model
@@ -25,45 +21,21 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  * @property string $_password
+ * @property string $phone
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends \andrewdanilov\adminpanel\models\User
 {
     public $role;
     public $_password;
 
-    const STATUS_DELETED = 0;
-    const STATUS_INACTIVE = 9;
-    const STATUS_ACTIVE = 10;
-
-    const  ROLE_SUPER_ADMIN = 'superAdmin';
     const  ROLE_ADMIN = 'admin';
     const  ROLE_CLIENT = 'client';
     const  ROLE_WASHER = 'washer';
 
 
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return '{{%user}}';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            TimestampBehavior::class,
-        ];
-
-    }
-
     public static function getRolesList()
     {
         return [
-            self::ROLE_SUPER_ADMIN => 'Супер админ',
             self::ROLE_ADMIN => 'Админ',
             self::ROLE_CLIENT => 'Клиент',
             self::ROLE_WASHER => 'Мойщик'
@@ -81,7 +53,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function getRole($id)
     {
-        if (Yii::$app->authManager->getRolesByUser($id)){
+        if (Yii::$app->authManager->getRolesByUser($id)) {
             return array_values(Yii::$app->authManager->getRolesByUser($id))[0]->description;
         }
 
@@ -91,128 +63,23 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * {@inheritdoc}
      */
+
+
     public function rules()
     {
-        return [
-            [['username', 'email'], 'required'],
-            [['username', 'email', '_password'], 'string'],
-            [['is_admin'], 'boolean'],
-            [['role'], 'string'],
-            ['status', 'default', 'value' => self::STATUS_INACTIVE],
-            ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
-        ];
+        $rules = parent::rules();
+        $rules[] = [['role'], 'string'];
+        $rules[] = [['phone'], 'string'];
+        $rules[] = [['phone'], 'required'];
+        return $rules;
     }
+
 
     public function attributeLabels()
     {
-        return [
-            'username' => 'Логин',
-            'email' => 'E-mail',
-            'password' => 'Пароль',
-            '_password' => 'Пароль',
-            'status' => 'Статус',
-            'is_admin' => 'Админ',
-        ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function findIdentity($id)
-    {
-        return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        throw new NotSupportedException('"findIdentityByAccessToken" is not implemented.');
-    }
-
-    /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
-     */
-    public static function findByUsername($username)
-    {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
-    }
-
-    /**
-     * Finds user by password reset token
-     *
-     * @param string $token password reset token
-     * @return static|null
-     */
-    public static function findByPasswordResetToken($token)
-    {
-        if (!static::isPasswordResetTokenValid($token)) {
-            return null;
-        }
-
-        return static::findOne([
-            'password_reset_token' => $token,
-            'status' => self::STATUS_ACTIVE,
-        ]);
-    }
-
-    /**
-     * Finds user by verification email token
-     *
-     * @param string $token verify email token
-     * @return static|null
-     */
-    public static function findByVerificationToken($token)
-    {
-        return static::findOne([
-            'verification_token' => $token,
-            'status' => self::STATUS_INACTIVE
-        ]);
-    }
-
-    /**
-     * Finds out if password reset token is valid
-     *
-     * @param string $token password reset token
-     * @return bool
-     */
-    public static function isPasswordResetTokenValid($token)
-    {
-        if (empty($token)) {
-            return false;
-        }
-
-        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
-        $expire = Yii::$app->params['user.passwordResetTokenExpire'];
-        return $timestamp + $expire >= time();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getId()
-    {
-        return $this->getPrimaryKey();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getAuthKey()
-    {
-        return $this->auth_key;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->getAuthKey() === $authKey;
+        $labels = parent::attributeLabels();
+        $labels['phone'] = 'Телефон';
+        return $labels;
     }
 
     /**
@@ -226,40 +93,6 @@ class User extends ActiveRecord implements IdentityInterface
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
-    /**
-     * Generates password hash from password and sets it to the model
-     *
-     * @param string $password
-     */
-    public function setPassword($password)
-    {
-        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
-    }
-
-    /**
-     * Generates "remember me" authentication key
-     */
-    public function generateAuthKey()
-    {
-        $this->auth_key = Yii::$app->security->generateRandomString();
-    }
-
-    /**
-     * Generates new password reset token
-     */
-    public function generatePasswordResetToken()
-    {
-        $this->password_reset_token = Yii::$app->security->generateRandomString() . '_' . time();
-    }
-
-    /**
-     * Generates new token for email verification
-     */
-    public function generateEmailVerificationToken()
-    {
-        $this->verification_token = Yii::$app->security->generateRandomString() . '_' . time();
-    }
-
     public static function getList()
     {
         return ArrayHelper::map(self::find()->all(), 'id', 'username');
@@ -271,30 +104,13 @@ class User extends ActiveRecord implements IdentityInterface
         return ArrayHelper::map(self::find()->where(['id' => $washer])->all(), 'id', 'username');
     }
 
-    /**
-     * Removes password reset token
-     */
-    public function removePasswordResetToken()
+    public static function findModel($id)
     {
-        $this->password_reset_token = null;
+        return User::findOne(['id' => $id]);
     }
-
 
     public function getPassword()
     {
         return '';
     }
-
-    public function beforeSave($insert)
-    {
-        if ($this->_password) {
-            $this->setPassword($this->_password);
-            $this->generateAuthKey();
-        } elseif ($insert) {
-            $this->addError('password', 'Не допускается использование пустого пароля');
-            return false;
-        }
-        return parent::beforeSave($insert);
-    }
-
 }

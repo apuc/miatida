@@ -43,7 +43,7 @@ class Module extends \yii\base\Module
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index', 'payment-salary/*', 'create', 'delete', 'view', 'update'],
+                        'actions' => ['index', 'payment-salary/*', 'create', 'delete', 'view', 'update', 'detail'],
                         'roles' => ['admin', 'superAdmin'],
                         'matchCallback' => function () {
                             return (bool)Yii::$app->user->identity->is_admin;

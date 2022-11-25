@@ -28,6 +28,7 @@ class Orders extends \yii\db\ActiveRecord
 {
     public $prettyCreateDate;
     public $prettyUpdateDate;
+    public $is_cash;
 
     const STATUS_ACTIVE = 1;
     const STATUS_DISABLED = 0;
@@ -66,7 +67,7 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'client_id', 'price_id', 'car_id', 'work_shift_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', 'client_id', 'price_id', 'car_id', 'work_shift_id', 'status', 'created_at', 'updated_at', 'is_cash'], 'integer'],
             [['car_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cars::class, 'targetAttribute' => ['car_id' => 'id']],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::class, 'targetAttribute' => ['client_id' => 'id']],
             [['price_id'], 'exist', 'skipOnError' => true, 'targetClass' => Prices::class, 'targetAttribute' => ['price_id' => 'id']],
@@ -89,6 +90,7 @@ class Orders extends \yii\db\ActiveRecord
             'car_id' => 'Машина',
             'work_shift_id' => 'Рабочая смена',
             'status' => 'Статус',
+            'is_cash' => 'Расчет наличными',
             'created_at' => 'Создано',
             'updated_at' => 'Обновлено',
         ];

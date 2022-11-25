@@ -16,6 +16,9 @@ use yii\helpers\ArrayHelper;
  */
 class Clients extends \yii\db\ActiveRecord
 {
+    public $password;
+    public $email;
+    public $car_id;
     /**
      * {@inheritdoc}
      */
@@ -30,9 +33,9 @@ class Clients extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'phone'], 'required'],
-            [['user_id'], 'integer'],
-            [['additional_info'], 'string'],
+            [['user_id', 'phone', 'password'], 'required'],
+            [['user_id', 'car_id'], 'integer'],
+            [['additional_info', 'email'], 'string'],
             [['name', 'phone'], 'string', 'max' => 255],
         ];
     }
@@ -51,9 +54,24 @@ class Clients extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'Пользователь',
+            'car_id' => 'Машина',
             'name' => 'Имя',
+            'password' => 'Пароль',
+            'email' => 'Почта',
             'phone' => 'Телефон',
             'additional_info' => 'Доп. информация',
         ];
+    }
+    public function getCars()
+    {
+        return $this->hasOne(Cars::class, ['id' => 'car_id']);
+    }
+
+    public static function findCar($id){
+        if (!empty(\common\models\Cars::find()->select('client_id')->where(['client_id' => $id])->one()['client_id'])){
+            return \common\models\Cars::find()->select('name')->where(['client_id' => $id])->one()['name'];
+        }else{
+            return 'Машина не указана';
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace frontend\modules\clients\models;
 
+use common\models\Cars;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\modules\clients\models\Clients;
@@ -18,7 +19,7 @@ class ClientsSearch extends Clients
     {
         return [
             [['id', 'user_id'], 'integer'],
-            [['name', 'phone', 'additional_info'], 'safe'],
+            [['name', 'phone', 'car_id', 'additional_info'], 'safe'],
         ];
     }
 
@@ -41,6 +42,7 @@ class ClientsSearch extends Clients
     public function search($params)
     {
         $query = Clients::find();
+        $query->leftJoin('cars', 'cars.client_id = clients.id');
 
         // add conditions that should always apply here
 
@@ -62,9 +64,10 @@ class ClientsSearch extends Clients
             'user_id' => $this->user_id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'clients.name', $this->name])
             ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'additional_info', $this->additional_info]);
+            ->andFilterWhere(['like', 'additional_info', $this->additional_info])
+            ->andFilterWhere(['like', 'cars.name', $this->car_id]);
 
         return $dataProvider;
     }

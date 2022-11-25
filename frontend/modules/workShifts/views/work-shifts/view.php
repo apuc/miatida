@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -37,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'user_id',
                 'value' => function($model){
-                    return $model->user->username;
+                    return \common\models\Washer::getWasherName($model->user->id);
                 }
             ],
         ],

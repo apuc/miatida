@@ -14,7 +14,7 @@ use yii\widgets\ActiveForm;
 
 
     <?= $form->field($model, 'user_id')->dropDownList(
-        \common\models\User::getListWasher(),
+        \common\models\Washer::getList(),
         $params = [
             'prompt' => 'Выберите мойщика...',
         ]
@@ -42,13 +42,15 @@ use yii\widgets\ActiveForm;
     ) ?>
 
     <?= $form->field($model, 'work_shift_id')->dropDownList(
-        \common\models\WorkShifts::getList(),
+        \common\models\WorkShifts::getWorkGroup(),
         $params = [
             'prompt' => 'Выберите рабочую смену...'
         ]
     ) ?>
 
     <?= $form->field($model, 'status')->dropDownList(\common\models\Services::getStatusLabel()) ?>
+
+    <?=$form->field($model, 'is_cash')->checkbox([ 'value' => '1', 'checked ' => true])->label('');?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

@@ -44,7 +44,6 @@ use yii\widgets\ActiveForm;
 
     ]); ?>
 
-
     <?= $form->field($model, 'client_id')->dropDownList(
         \common\models\Clients::getList(),
         $params = [

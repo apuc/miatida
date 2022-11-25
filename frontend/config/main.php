@@ -52,6 +52,9 @@ return [
         'orders' => [
             'class' => 'frontend\modules\orders\Module',
         ],
+        'washer' => [
+            'class' => 'frontend\modules\washer\Module',
+        ],
     ],
     'components' => [
         'request' => [

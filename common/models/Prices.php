@@ -53,7 +53,7 @@ class Prices extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'services_id' => 'Услуги',
-            'tarif_id' => 'Тариф',
+            'tarif_id' => 'Прайс',
             'body_type_id' => 'Категория авто',
             'price' => 'Стоимость',
             'washer_salary' => 'Зарплата мойщику'

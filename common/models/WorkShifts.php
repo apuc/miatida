@@ -25,18 +25,18 @@ class WorkShifts extends \yii\db\ActiveRecord
         return 'work_shifts';
     }
 
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['date'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date'],
-                ],
-            ],
-        ];
-    }
+//    public function behaviors()
+//    {
+//        return [
+//            'timestamp' => [
+//                'class' => 'yii\behaviors\TimestampBehavior',
+//                'attributes' => [
+//                    ActiveRecord::EVENT_BEFORE_INSERT => ['date'],
+//                    ActiveRecord::EVENT_BEFORE_UPDATE => ['date'],
+//                ],
+//            ],
+//        ];
+//    }
 
     /**
      * {@inheritdoc}
@@ -44,7 +44,6 @@ class WorkShifts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date'], 'string'],
             [['date', 'user_id',], 'required'],
         ];
     }
@@ -67,6 +66,13 @@ class WorkShifts extends \yii\db\ActiveRecord
         return ArrayHelper::map(self::find()->all(), 'id', 'prettyDate');
     }
 
+    public static function getWorkGroup()
+    {
+        return array_unique(ArrayHelper::map(self::find()->all(), 'id', 'prettyDate'));
+
+    }
+
+
     public function getUser(): \yii\db\ActiveQuery
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
@@ -78,4 +84,3 @@ class WorkShifts extends \yii\db\ActiveRecord
         $this->prettyDate = date("d-m-Y", $this->date);
     }
 }
-

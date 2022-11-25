@@ -6,7 +6,7 @@ use common\services\RoleService;
 use Yii;
 use yii\web\Response;
 use common\models\User;
-use andrewdanilov\adminpanel\models\UserSearch;
+use frontend\models\UserSearch;
 use common\models\LoginForm;
 
 class UserController extends BackendController
@@ -59,7 +59,7 @@ class UserController extends BackendController
 
 	public function actionIndex()
 	{
-		$searchModel = new UserSearch;
+		$searchModel = new \frontend\models\UserSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
 		return $this->render('index', [
@@ -74,9 +74,9 @@ class UserController extends BackendController
 			$model = new User();
 		} else {
 			$model = User::findOne(['id' => $id]);
-		}
-
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        }
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
             RoleService::setRole($model->id, $model->role);
 			return $this->redirect(['index']);
 		}

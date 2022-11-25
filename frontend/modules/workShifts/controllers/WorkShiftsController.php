@@ -69,11 +69,11 @@ class WorkShiftsController extends Controller
     public function actionCreate()
     {
         $model = new WorkShifts();
-
         if ($this->request->isPost) {
             $model->load($this->request->post());
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            \common\services\WorkShiftsService::createWorkShiftGroup($model);
+            return $this->redirect(['index']);
         } else {
             $model->loadDefaultValues();
         }
@@ -94,7 +94,9 @@ class WorkShiftsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->date = strtotime($model->date);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

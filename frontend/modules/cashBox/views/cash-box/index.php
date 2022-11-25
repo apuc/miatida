@@ -15,6 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cash-box-index">
 
+
+    <p>
+        <?= Html::a('Добавить в кассу', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([

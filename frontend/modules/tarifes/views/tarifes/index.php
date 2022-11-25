@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var frontend\modules\tarifes\models\TarifesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Тарифы';
+$this->title = 'Прайсы';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tarifes-index">

@@ -56,14 +56,16 @@ class CashBoxController extends Controller
      */
     public function actionCreate()
     {
-        $model = new CashBox();
-
+        $model = \common\services\CashBoxService::findDate(strtotime('today midnight'));
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $model->date = strtotime($model->date);
+                $model->revenue = $model->revenue + $model->revenueAdd;
+                $model->save();
+                return $this->redirect(['index']);
             }
         } else {
-            $model->loadDefaultValues();
+            $model->loadDefaultValues(false);
         }
 
         return $this->render('create', [

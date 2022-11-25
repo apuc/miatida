@@ -40,9 +40,6 @@ use yii\widgets\ActiveForm;
     )?>
 
     <?= $form->field($model, 'price')->textInput() ?>
-    <?= $form->field($model, 'washer_salary')->textInput(
-            ['placeholder' => 'Стандартная ставка '. \common\models\Settings::findKeyValue('salaryWasher') .'% от стоимости мойки'
-            ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

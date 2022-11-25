@@ -47,7 +47,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'price',
-            'washer_salary',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Prices $model, $key, $index, $column) {

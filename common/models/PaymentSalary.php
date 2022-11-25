@@ -77,7 +77,11 @@ class PaymentSalary extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
-    
+
+    public static function findWasherOrders($id){
+        return  \common\models\Orders::find()->where(['user_id' => $id])->all();
+    }
+
     public function afterFind()
     {
         parent::afterFind();

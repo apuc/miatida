@@ -71,10 +71,6 @@ class PricesController extends Controller
         $model = new Prices();
         if ($this->request->isPost) {
             $model->load($this->request->post());
-            if ($model->washer_salary == NULL){
-                $model->washer_salary = $model->price * (Settings::findKeyValue('salaryWasher') / 100);
-                $model->washer_salary = ceil($model->washer_salary);
-            }
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

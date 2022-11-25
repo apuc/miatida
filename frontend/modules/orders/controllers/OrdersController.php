@@ -4,6 +4,7 @@ namespace frontend\modules\orders\controllers;
 
 use common\models\CashBox;
 use common\models\Salary;
+use common\models\Washer;
 use frontend\modules\orders\models\Orders;
 use frontend\modules\orders\models\OrdersSearch;
 use yii\web\Controller;
@@ -70,15 +71,19 @@ class OrdersController extends Controller
     public function actionCreate()
     {
         $model = new Orders();
-
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $cashBoxModel = $this->findDate(strtotime('today midnight'));
-                $cashBoxModel->revenue = $cashBoxModel->revenue + $model->price->price;
-                $salaryModel = $this->findWasher($model->user_id);
-                $salaryModel->salary = $salaryModel->salary + $model->price->washer_salary;
+
+                if ($model->is_cash == 1){
+                    $cashBoxModel = \common\services\CashBoxService::findDate(strtotime('today midnight'));
+                    $cashBoxModel->revenue = $cashBoxModel->revenue + $model->price->price;
+                    $cashBoxModel->save();
+
+                }
+                $salaryModel = \common\services\SalaryService::findWasher($model->user_id);
+                $salaryModel->salary = $salaryModel->salary + Washer::washerSalary($model->user_id, $model->price->price);
+
                 $model->save();
-                $cashBoxModel->save();
                 $salaryModel->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -90,31 +95,7 @@ class OrdersController extends Controller
         ]);
     }
 
-    public function findWasher($id)
-    {
-        if (($salaryModel = Salary::findOne(['user_id' => $id])) !== null) {
-            return $salaryModel;
-        }else{
-            $salaryModel = new Salary();
-            $salaryModel->user_id = $id;
-            $salaryModel->save();
-            return $salaryModel;
-        }
 
-    }
-
-    public function findDate($date)
-    {
-        if (($cashBoxModel = CashBox::findOne(['date' => $date])) !== null) {
-            return $cashBoxModel;
-        }else{
-            $cashBoxModel = new CashBox;
-            $cashBoxModel->date = $date;
-            $cashBoxModel->save();
-            return $cashBoxModel;
-        }
-
-    }
 
     /**
      * Updates an existing Orders model.
