@@ -5,6 +5,7 @@ namespace frontend\modules\orders\controllers;
 use common\models\CashBox;
 use common\models\Salary;
 use common\models\Washer;
+use common\services\PriceInfoService;
 use frontend\modules\orders\models\Orders;
 use frontend\modules\orders\models\OrdersSearch;
 use yii\web\Controller;
@@ -73,18 +74,8 @@ class OrdersController extends Controller
         $model = new Orders();
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-
-                if ($model->is_cash == 1){
-                    $cashBoxModel = \common\services\CashBoxService::findDate(strtotime('today midnight'));
-                    $cashBoxModel->revenue = $cashBoxModel->revenue + $model->price->price;
-                    $cashBoxModel->save();
-
-                }
-                $salaryModel = \common\services\SalaryService::findWasher($model->user_id);
-                $salaryModel->salary = $salaryModel->salary + Washer::washerSalary($model->user_id, $model->price->price);
-
                 $model->save();
-                $salaryModel->save();
+                \common\services\PriceInfoService::makePrices($model);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -94,7 +85,6 @@ class OrdersController extends Controller
             'model' => $model,
         ]);
     }
-
 
 
     /**

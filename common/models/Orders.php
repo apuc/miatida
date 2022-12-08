@@ -11,7 +11,6 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property int|null $user_id
  * @property int|null $client_id
- * @property int|null $price_id
  * @property int|null $car_id
  * @property int|null $work_shift_id
  * @property int|null $status
@@ -29,6 +28,8 @@ class Orders extends \yii\db\ActiveRecord
     public $prettyCreateDate;
     public $prettyUpdateDate;
     public $is_cash;
+    public $price;
+    public $priceInfo;
 
     const STATUS_ACTIVE = 1;
     const STATUS_DISABLED = 0;
@@ -67,13 +68,12 @@ class Orders extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'client_id', 'price_id', 'car_id', 'work_shift_id', 'status', 'created_at', 'updated_at', 'is_cash'], 'integer'],
+            [['user_id', 'client_id', 'car_id', 'work_shift_id', 'status', 'created_at', 'updated_at', 'is_cash'], 'integer'],
             [['car_id'], 'exist', 'skipOnError' => true, 'targetClass' => Cars::class, 'targetAttribute' => ['car_id' => 'id']],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::class, 'targetAttribute' => ['client_id' => 'id']],
-            [['price_id'], 'exist', 'skipOnError' => true, 'targetClass' => Prices::class, 'targetAttribute' => ['price_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['work_shift_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkShifts::class, 'targetAttribute' => ['work_shift_id' => 'id']],
-            [['user_id', 'client_id', 'price_id', 'car_id', 'work_shift_id', 'status'], 'required']
+            [['user_id', 'client_id', 'car_id', 'work_shift_id', 'price', 'status'], 'required']
         ];
     }
 
@@ -86,9 +86,9 @@ class Orders extends \yii\db\ActiveRecord
             'id' => 'ID',
             'user_id' => 'Мойщик',
             'client_id' => 'Клиент',
-            'price_id' => 'Стоимость',
             'car_id' => 'Машина',
             'work_shift_id' => 'Рабочая смена',
+            'priceInfo' => 'Price',
             'status' => 'Статус',
             'is_cash' => 'Расчет наличными',
             'created_at' => 'Создано',
@@ -121,10 +121,6 @@ class Orders extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPrice()
-    {
-        return $this->hasOne(Prices::class, ['id' => 'price_id']);
-    }
 
     /**
      * Gets query for [[User]].
@@ -145,7 +141,36 @@ class Orders extends \yii\db\ActiveRecord
     {
         return $this->hasOne(WorkShifts::class, ['id' => 'work_shift_id']);
     }
-    public function afterFind()
+
+    public static function getPriceName($id){
+        return \common\models\PriceInfo::find()->select('price_id')->where(['order_id'=>$id])->all();
+    }
+
+    public static function getPricesId($id){
+        $prices = [];
+        foreach (\common\models\PriceInfo::find()->select('price_id')->where(['order_id'=>$id])->all() as $price){
+            $prices[] = $price['price_id'];
+        }
+        return $prices;
+    }
+
+    public static function getPrice($id){
+        $price = self::getPricesId($id);
+         return \common\models\Prices::find()->select('price')->where(['id'=> $price])->all();
+    }
+
+    public static function getTarifId($id){
+        return \common\models\Prices::find()->select('tarif_id')->where(['id'=>$id])->all();
+    }
+
+    public static function getTarifName($id)
+    {
+        $pricesId = self::getPricesId($id);
+        $tarifId = self::getTarifId($pricesId);
+        return \common\models\Tarifes::find()->select('name')->where(['id'=>$tarifId])->all();
+    }
+
+        public function afterFind()
     {
         parent::afterFind();
         $this->prettyCreateDate = date("d-m-Y H:i", $this->created_at);

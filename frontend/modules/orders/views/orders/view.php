@@ -42,8 +42,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' =>  $model->client->name
             ],
             [
-                'attribute' => 'price_id',
-                'value' =>  $model->price->price
+                'attribute' => 'Price',
+                'value' => function($model){
+                    $prices =[];
+                    foreach (\common\models\Orders::getPrice($model->id) as $item){
+                        $prices [] =  $item['price'];
+                    }
+                    return implode(',', $prices);
+                }
             ],
             [
                 'attribute' => 'car_id',

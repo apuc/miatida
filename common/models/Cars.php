@@ -126,6 +126,13 @@ class Cars extends \yii\db\ActiveRecord
         return ArrayHelper::map(self::find()->all(), 'id', 'name');
     }
 
+    public static function getClientCarList($id)
+    {
+        return ArrayHelper::map(self::find()->where(['client_id'=>$id])->all(), 'id', 'name');
+    }
+
+
+
     public function afterFind()
     {
         parent::afterFind();

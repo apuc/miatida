@@ -41,37 +41,34 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 ],
                 [
-                    'attribute' => 'Услугу',
+                    'attribute' => 'price',
                     'value' => function($model){
-                        return $model->price->services->name;
-                    }
-                ],
-                [
-                    'attribute' => 'Услугу',
-                    'value' => function($model){
-                        return $model->price->tarif->name;
-                    }
-                ],
-                [
-                    'attribute' => 'Стоимость',
-                    'value' => function($model){
-                        return $model->price->price;
-                    }
-                ],
-                [
-                    'attribute' => 'Зарплата за услугу',
-                    'value' => function($model){
-                        return \common\models\Washer::washerSalary($model->user_id, $model->price->price);
+                        $prices =[];
+                        foreach (\common\models\Orders::getPrice($model->id) as $item){
+                            $prices [] =  $item['price'];
+                        }
+                        return implode(',', $prices);
                     }
                 ],
 
+                [
+                    'attribute' => 'Зарплата за услугу',
+                    'value' => function($model){
+                        $prices =[];
+                        foreach (\common\models\Orders::getPrice($model->id) as $item){
+                            $prices [] =  $item['price'];
+                        }
+                        $full_price = array_sum($prices);
+                        return \common\models\Washer::washerSalary($model->user_id, $full_price);
+
+                    }
+                ],
                 [
                     'attribute' => 'Зарплата за выход',
                     'value' => function($model){
                         return \common\models\Washer::findWasherSalaryPerExit($model->user_id);
                     }
                 ]
-
             ]
         ]);
     }

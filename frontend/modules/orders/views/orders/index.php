@@ -41,9 +41,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'attribute' => 'price_id',
+                'attribute' => 'price',
                 'value' => function($model){
-                    return $model->price->price;
+                    $prices =[];
+                    foreach (\common\models\Orders::getPrice($model->id) as $item){
+                        $prices [] =  $item['price'];
+                    }
+                    return implode(',', $prices);
                 }
             ],
             [
@@ -55,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'work_shift_id',
                 'value' => function($model){
-                    return $model->workShift->date;
+                    return $model->workShift->prettyDate;
                 }
             ],
             [

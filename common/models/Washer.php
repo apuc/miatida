@@ -87,7 +87,7 @@ class Washer extends \yii\db\ActiveRecord
     }
 
     public static function washerSalary($id, $price){
-        return (self::findWasherSalaryPerPercent($id) * $price / 100);
+        return self::findWasherSalaryPerPercent($id) * $price / 100;
     }
 
     public static function findWasherSalaryPerPercent($id){

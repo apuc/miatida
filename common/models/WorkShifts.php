@@ -16,6 +16,8 @@ use yii\helpers\ArrayHelper;
 class WorkShifts extends \yii\db\ActiveRecord
 {
     public $prettyDate;
+    public $name;
+    public $washer_id;
 
     /**
      * {@inheritdoc}
@@ -72,6 +74,14 @@ class WorkShifts extends \yii\db\ActiveRecord
 
     }
 
+    public static function getWashersPerGroup($id)
+    {
+        $date = self::find()->select('date')->where(['id' => $id])->one()['date'];
+        return ArrayHelper::map(self::find()
+            ->select(['washer.id AS washer_id', 'washer.name', 'work_shifts.id', 'work_shifts.date', 'work_shifts.user_id'])
+            ->leftJoin('washer', 'work_shifts.user_id = washer.id')
+            ->where(['date' => $date])->all(), 'washer_id', 'name');
+    }
 
     public function getUser(): \yii\db\ActiveQuery
     {
