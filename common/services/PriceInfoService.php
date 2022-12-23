@@ -14,12 +14,13 @@ class PriceInfoService
             $PriceInfoModel = new \common\models\PriceInfo();
             $PriceInfoModel->price_id = $item;
             $PriceInfoModel->order_id = $model->id;
-            \common\services\OrdersService::isCash($model->is_cash, array_sum($prices));
             $PriceInfoModel->save();
         }
         foreach (\common\models\Orders::getPrice($model->id) as $value){
             $prices [] =  $value['price'];
         }
+        \common\services\OrdersService::isCash($model->is_cash, array_sum($prices));
+
         $salaryModel->salary = $salaryModel->salary + Washer::washerSalary($model->user_id, array_sum($prices));
 
         $salaryModel->save();
