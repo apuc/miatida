@@ -19,12 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
     <?php
         $orderModel = \common\models\PaymentSalary::findWasherOrders($model->user_id);
+
     ?>
 
     <?=
     $content = '';
 
-    foreach(\common\models\PaymentSalary::findWasherOrders($model->id) as $item) {
+    foreach(\common\models\PaymentSalary::findWasherOrders($model->user_id) as $item) {
         $content .= DetailView::widget([
             'model' => $item,
             'attributes' => [

@@ -78,8 +78,8 @@ class WorkShifts extends \yii\db\ActiveRecord
     {
         $date = self::find()->select('date')->where(['id' => $id])->one()['date'];
         return ArrayHelper::map(self::find()
-            ->select(['washer.id AS washer_id', 'washer.name', 'work_shifts.id', 'work_shifts.date', 'work_shifts.user_id'])
-            ->leftJoin('washer', 'work_shifts.user_id = washer.id')
+            ->select(['washer.user_id AS washer_id', 'washer.name', 'work_shifts.id', 'work_shifts.date', 'work_shifts.user_id'])
+            ->leftJoin('washer', 'work_shifts.user_id = washer.user_id')
             ->where(['date' => $date])->all(), 'washer_id', 'name');
     }
 

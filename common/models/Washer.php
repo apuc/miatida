@@ -91,11 +91,11 @@ class Washer extends \yii\db\ActiveRecord
     }
 
     public static function findWasherSalaryPerPercent($id){
-        return self::find()->select('salary_percent')->where(['id' => $id])->one()['salary_percent'];
+        return self::find()->select('salary_percent')->where(['user_id' => $id])->one()['salary_percent'];
     }
 
     public static function findWasherSalaryPerExit($id){
-        return self::find()->select('salary_exit')->where(['id' => $id])->one()['salary_exit'];
+        return self::find()->select('salary_exit')->where(['user_id' => $id])->one()['salary_exit'];
     }
 
     /**
@@ -109,11 +109,15 @@ class Washer extends \yii\db\ActiveRecord
     }
 
     public static function getList(){
-        return ArrayHelper::map(self::find()->all(), 'id', 'name');
+        return ArrayHelper::map(self::find()->all(), 'user_id', 'name');
     }
 
     public static function getWasherName($id){
-        return self::find()->select('name')->where(['id' => $id])->one()['name'];
+        if (self::find()->select('name')->where(['user_id' => $id])->one()){
+            return self::find()->select('name')->where(['user_id' => $id])->one()['name'];
+        }else{
+            return "Мойщик удален";
+        }
     }
 
     public function afterFind()

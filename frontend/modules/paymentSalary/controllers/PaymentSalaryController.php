@@ -65,7 +65,7 @@ class PaymentSalaryController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = PaymentSalary::findOne(['id' => $id])) !== null) {
+        if (($model = PaymentSalary::findOne(['user_id' => $id])) !== null) {
             return $model;
         }
 
