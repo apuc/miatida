@@ -5,7 +5,8 @@ namespace frontend\models;
 use common\models\User;
 use yii\data\ActiveDataProvider;
 
-class UserSearch extends \andrewdanilov\adminpanel\models\UserSearch
+class UserSearch extends \common\models\oldUser\UserSearch
+
 {
     /**
      * @var mixed|null

@@ -26,7 +26,6 @@ class WasherController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
-                        'delete' => ['POST'],
                     ],
                 ],
             ]
@@ -40,12 +39,14 @@ class WasherController extends Controller
      */
     public function actionIndex()
     {
+        $cardModel = \common\models\Washer::find()->all();
         $searchModel = new WasherSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'cardModel' => $cardModel,
         ]);
     }
 

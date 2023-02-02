@@ -34,23 +34,21 @@ class Module extends \yii\base\Module
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['user/login'],
+                        'actions' => ['login'],
                         'roles' => ['?'],
                         'denyCallback' => function () {
                             throw new ForbiddenHttpException();
-
                         },
                     ],
                     [
                         'allow' => true,
                         'actions' => ['index', 'payment-salary/*', 'create', 'delete', 'view', 'update', 'detail'],
-                        'roles' => ['admin', 'superAdmin'],
+                        'roles' => ['@', 'admin', 'superAdmin'],
                         'matchCallback' => function () {
                             return (bool)Yii::$app->user->identity->is_admin;
                         },
                         'denyCallback' => function () {
                             throw new ForbiddenHttpException();
-
                         },
                     ],
                 ]

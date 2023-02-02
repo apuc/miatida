@@ -14,7 +14,6 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'image')->fileInput()->widget(FileInput::class, [
-
         'pluginOptions' => [
             'showZoom' => false,
             'initialPreview' => [
@@ -29,7 +28,6 @@ use yii\widgets\ActiveForm;
             'browseIcon' => '<i class="fa fa-camera"></i> ',
             'browseLabel' => 'Выберите фото',
         ],
-
     ]); ?>
 
     <?= $form->field($model, 'name')->textInput() ?>
@@ -39,10 +37,6 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'add_phone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'add_phone_owner')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'password')->textInput(['type' => 'password']) ?>
-
-    <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
 
     <?= $form->field($model, 'date_birth')->input('date') ?>
 

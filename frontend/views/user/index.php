@@ -6,8 +6,8 @@
 
 $this->title = 'Пользователи';
 
+use common\models\User;
 use yii\grid\GridView;
-use andrewdanilov\adminpanel\models\User;
 use frontend\models\UserSearch;
 
 ?>
@@ -43,10 +43,6 @@ use frontend\models\UserSearch;
             'value' => function(User $model) {
                 return \common\models\User::getRole($model->id);
             }
-        ],
-        [
-            'class' => \andrewdanilov\gridtools\FontawesomeActionColumn::class,
-            'template' => '{update}{delete}',
         ],
 
     ]

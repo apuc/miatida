@@ -15,6 +15,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -29,36 +30,30 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::class,
+                'class' => AccessControl::className(),
+                'only' => ['login', 'index'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['login', 'role-super-admin', 'role-admin', 'role-client', 'role-washer', 'error'],
-                        'roles' => ['@'],
-                        'denyCallback' => function () {
-                            throw new NotFoundHttpException();
-                        },
+                        'actions' => ['login'],
+                        'roles' => ['?'],
                     ],
                     [
                         'allow' => true,
-                        'actions' => ['index', 'error'],
-                        'roles' => ['admin', 'superAdmin'],
+                        'actions' => ['index', 'logout'],
+                        'roles' => ['@'],
+                        'matchCallback' => function () {
+                            return (bool)Yii::$app->user->identity->is_admin;
+                        },
                         'denyCallback' => function () {
-                            throw new NotFoundHttpException();
+                            throw new ForbiddenHttpException();
+
                         },
                     ],
-
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
     }
-
     /**
      * {@inheritdoc}
      */

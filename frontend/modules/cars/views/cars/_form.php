@@ -25,7 +25,7 @@ use yii\widgets\ActiveForm;
     $photoModel = new \common\models\CarPhotos;
     ?>
 
-    <?= $form->field($photoModel, 'path')->fileInput()->widget(FileInput::class, [
+    <?=  $form->field($photoModel, 'path')->fileInput()->widget(FileInput::class, [
         'pluginOptions' => [
             'initialPreviewAsData' => $photoModel->path,
             'showZoom' => false,
@@ -34,7 +34,6 @@ use yii\widgets\ActiveForm;
             ],
             'overwriteInitial' => true,
             'showCaption' => false,
-            'showUpload' => false,
             'showRemove' => true,
             'showDetails' => true,
             'browseClass' => 'btn btn-primary btn-block',

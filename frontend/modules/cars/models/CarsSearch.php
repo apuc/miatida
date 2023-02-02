@@ -17,8 +17,8 @@ class CarsSearch extends Cars
     public function rules()
     {
         return [
-            [['id', 'body_type_id', 'photo_id', 'client_id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['name'], 'safe'],
+            [['id', 'photo_id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['name','client_id','body_type_id'], 'safe'],
         ];
     }
 
@@ -41,6 +41,9 @@ class CarsSearch extends Cars
     public function search($params)
     {
         $query = Cars::find();
+        $query->leftJoin('clients', 'clients.id = cars.client_id')
+            ->leftJoin('body_types', 'body_types.id = cars.body_type_id');
+
 
         // add conditions that should always apply here
 
@@ -59,16 +62,20 @@ class CarsSearch extends Cars
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'body_type_id' => $this->body_type_id,
             'photo_id' => $this->photo_id,
-            'client_id' => $this->client_id,
             'status' => $this->status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'cars.name', $this->name])
+            ->andFilterWhere(['like', 'clients.name', $this->client_id])
+            ->andFilterWhere(['like', 'body_types.name', $this->body_type_id]);
 
         return $dataProvider;
     }
 }
+//$query->andFilterWhere(['like', 'clients.name', $this->name])
+//    ->andFilterWhere(['like', 'phone', $this->phone])
+//    ->andFilterWhere(['like', 'additional_info', $this->additional_info])
+//    ->andFilterWhere(['like', 'cars.name', $this->car_id]);

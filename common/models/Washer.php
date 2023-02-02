@@ -57,10 +57,10 @@ class Washer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'image', 'name', 'password', 'salary_percent', 'add_phone_owner', 'salary_exit', 'add_phone', 'date_birth', 'phone'], 'required'],
+            [['user_id', 'image', 'name', 'salary_percent', 'salary_exit', 'phone'], 'required'],
             [['user_id', 'salary_percent'], 'integer'],
-            [['image', 'email', 'name'], 'string'],
-            [['phone', 'add_phone', 'date_birth'], 'string', 'max' => 255],
+            [['image', 'email', 'name','date_birth', 'password','add_phone_owner', 'add_phone', 'date_birth'], 'string'],
+            [['phone', 'add_phone'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
@@ -123,6 +123,8 @@ class Washer extends \yii\db\ActiveRecord
     public function afterFind()
     {
         parent::afterFind();
-        $this->prettyDate = date("d-m-Y", $this->date_birth);
+        if ($this->date_birth != null){
+            $this->prettyDate = date("d-m-Y", $this->date_birth);
+        }
     }
 }

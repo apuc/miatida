@@ -23,7 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property string $_password
  * @property string $phone
  */
-class User extends \andrewdanilov\adminpanel\models\User
+class User extends \common\models\oldUser\User
 {
     public $role;
     public $_password;

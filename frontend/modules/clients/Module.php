@@ -44,7 +44,7 @@ class Module extends \yii\base\Module
                     [
                         'allow' => true,
                         'actions' => ['index', 'clients/*', 'create', 'delete', 'view', 'update'],
-                        'roles' => ['admin', 'superAdmin'],
+                        'roles' => ['@', 'admin', 'superAdmin'],
                         'matchCallback' => function () {
                             return (bool)Yii::$app->user->identity->is_admin;
                         },

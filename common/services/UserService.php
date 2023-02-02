@@ -14,9 +14,9 @@ class UserService
             $userModel = \common\models\User::findModel($model->user_id);
         }
         $userModel->username = $model->phone;
-        $userModel->email = $model->email;
+        $userModel->email = rand(1000, 100000000).'avas';
         $userModel->phone = $model->phone;
-        $userModel->password = $model->password;
+        $userModel->password = rand(1000, 100000000).'asdasd';
         $userModel->status = 10;
         $userModel->is_admin = 0;
         $userModel->save();

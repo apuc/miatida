@@ -3,7 +3,7 @@
 /* @var $this \yii\web\View */
 /* @var $model User */
 
-use andrewdanilov\adminpanel\models\User;
+use common\models\User;
 
 if ($model->isNewRecord) {
 	$this->title = 'Новый пользователь';

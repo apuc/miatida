@@ -13,6 +13,7 @@ use yii\grid\GridView;
 $this->title = 'Настройки';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <div class="settings-index">
 
 

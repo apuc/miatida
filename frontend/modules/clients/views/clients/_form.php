@@ -15,10 +15,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email')->textInput(['type' => 'email']) ?>
-
-    <?= $form->field($model, 'password')->textInput(['type' => 'password']) ?>
-
     <?= $form->field($model, 'additional_info')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
