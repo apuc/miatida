@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var frontend\modules\workShifts\models\WorkShifts $model */
 /** @var yii\widgets\ActiveForm $form */
+//print_r(\common\models\Washer::getList());die();
 ?>
 
 <div class="work-shifts-form">
