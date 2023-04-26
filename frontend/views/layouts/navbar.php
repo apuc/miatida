@@ -20,7 +20,9 @@ use yii\helpers\Url;
         <li class="nav-item" style="margin-left: 20px;">
             <?= Html::a('Создать заказ', ['/orders/orders/create'], ['class' => 'btn btn-info', 'btn-lg','btn-circle'],  ) ?>
         </li>
-
+        <li class="nav-item" style="margin-left: 20px;">
+            <?= Html::a('Добавить машину', ['/cars/cars/create'], ['class' => 'btn btn-danger', 'btn-lg','btn-circle'],  ) ?>
+        </li>
         <li class="nav-item dropdown">
             <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
 

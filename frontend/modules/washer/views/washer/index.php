@@ -29,9 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="card-body">
                 <h5 class="card-title">Имя: <?=$value['name']?></h5>
                 <p class="card-text"> Номер <?=$value['phone']?></p>
-                <a href="view?id=<?=$value['id']?>" type="button" class="btn btn-info btn-circle"><i class="fas fa-eye"></i></a>
-                <a href="update?id=<?=$value['id']?>" type="button" class="btn btn-primary btn-circle"><i class="fas fa-pen"></i></a>
-                <a href="delete?id=<?=$value['id']?>" type="button" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
+                <a href="/washer/washer/view?id=<?=$value['id']?>" type="button" class="btn btn-info btn-circle"><i class="fas fa-eye"></i></a>
+                <a href="/washer/washer/update?id=<?=$value['id']?>" type="button" class="btn btn-primary btn-circle"><i class="fas fa-pen"></i></a>
+                <a href="/washer/washer/delete?id=<?=$value['id']?>" type="button" class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></a>
 
             </div>
         </div>

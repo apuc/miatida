@@ -10,14 +10,14 @@ use yii\grid\GridView;
 /** @var frontend\modules\prices\models\PricesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Price';
+$this->title = 'Прейскурант цен';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="prices-index">
 
 
     <p>
-        <?= Html::a('Создать Price', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Добавить цену', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'attribute' => 'price',
+                'attribute' => 'Прейскурант цен',
                 'value' => function($model){
                     $prices =[];
                     foreach (\common\models\Orders::getPrice($model->id) as $item){
