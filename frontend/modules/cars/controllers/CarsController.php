@@ -86,6 +86,7 @@ class CarsController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'modelPhoto' => $modelPhoto
         ]);
     }
 
@@ -107,10 +108,11 @@ class CarsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelPhoto = new CarPhotos();
+        $modelPhoto = $model->photo;
 
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
+            $modelPhoto->load(Yii::$app->request->post());
             $model->photo_id = $this->uploadFile($modelPhoto);
             if  ($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -120,6 +122,7 @@ class CarsController extends Controller
         }
         return $this->render('update', [
             'model' => $model,
+            'modelPhoto' => $modelPhoto
         ]);
     }
 

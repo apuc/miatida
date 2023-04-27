@@ -9,6 +9,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var frontend\modules\cars\models\cars $model */
 /** @var yii\widgets\ActiveForm $form */
+/** @var frontend\modules\carPhotos\models\carPhotos $modelPhoto */
 ?>
 
 <div class="cars-form">
@@ -23,7 +24,7 @@ use yii\widgets\ActiveForm;
             'prompt' => 'Выберите категорию авто...'
         ]
     );
-    $photoModel = new \common\models\CarPhotos;
+//    $photoModel = new \common\models\CarPhotos;
     ?>
 
     <?=InputFile::widget([
@@ -35,7 +36,7 @@ use yii\widgets\ActiveForm;
         'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
         'options' => ['class' => 'form-control itemImg banner_update_on_change', 'maxlength' => '255'],
         'buttonOptions' => ['class' => 'btn btn-primary'],
-        'value' => $photoModel->path,
+        'value' => $modelPhoto->path,
         'buttonName' => 'Выбрать фотографию',
     ]);
     ?>
