@@ -1,6 +1,7 @@
 <?php
 
 use kartik\widgets\FileInput;
+use mihaildev\elfinder\InputFile;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -13,22 +14,36 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'image')->fileInput()->widget(FileInput::class, [
-        'pluginOptions' => [
-            'showZoom' => false,
-            'initialPreview' => [
-                $model->image != null ? Html::img('@web/images/washers/' . $model->image, ['class' => 'file-preview-image']):null,
-            ],
-            'overwriteInitial' => true,
-            'showCaption' => false,
-            'showUpload' => false,
-            'showRemove' => true,
-            'showDetails' => true,
-            'browseClass' => 'btn btn-primary btn-block',
-            'browseIcon' => '<i class="fa fa-camera"></i> ',
-            'browseLabel' => 'Выберите фото',
-        ],
-    ]); ?>
+    <?=InputFile::widget([
+        'language' => 'ru',
+        'controller' => 'elfinder',
+        'filter' => 'image',
+        'name' => 'Washer[image]',
+        'id' => 'washer-image',
+        'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
+        'options' => ['class' => 'form-control itemImg banner_update_on_change', 'maxlength' => '255'],
+        'buttonOptions' => ['class' => 'btn btn-primary'],
+        'value' => $model->image,
+        'buttonName' => 'Выбрать фотографию',
+    ]);
+    ?>
+
+<!--    --><?php //= $form->field($model, 'image')->fileInput()->widget(FileInput::class, [
+//        'pluginOptions' => [
+//            'showZoom' => false,
+//            'initialPreview' => [
+//                $model->image != null ? Html::img('@web/images/washers/' . $model->image, ['class' => 'file-preview-image']):null,
+//            ],
+//            'overwriteInitial' => true,
+//            'showCaption' => false,
+//            'showUpload' => false,
+//            'showRemove' => true,
+//            'showDetails' => true,
+//            'browseClass' => 'btn btn-primary btn-block',
+//            'browseIcon' => '<i class="fa fa-camera"></i> ',
+//            'browseLabel' => 'Выберите фото',
+//        ],
+//    ]); ?>
 
     <?= $form->field($model, 'name')->textInput() ?>
 

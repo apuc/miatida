@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'photo_id',
-                'value' => function($model){return '@web/images/cars/' . $model->photo->path;},
+                'value' => function($model){return $model->photo->path;},
                 'format' => ['image', ['width' => 100, 'height' => 100]],
             ],
             [

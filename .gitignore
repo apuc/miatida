@@ -48,4 +48,5 @@ frontend-access.log
 frontend-error.log
 
 frontend/web/images
+frontend/web/media/upload/images
 

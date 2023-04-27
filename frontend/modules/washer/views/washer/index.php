@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row">
     <?php foreach ($cardModel as $value){?>
         <div class="card" style="width: 18rem; margin-right: 13px;">
-            <img style="height:200px;" class="card-img-top" src=" <?= '/images/washers/' . $value['image']?>" alt="Card image cap">
+            <img style="height:200px;" class="card-img-top" src=" <?=$value['image']?>" alt="Card image cap">
             <div class="card-body">
                 <h5 class="card-title">Имя: <?=$value['name']?></h5>
                 <p class="card-text"> Номер <?=$value['phone']?></p>
