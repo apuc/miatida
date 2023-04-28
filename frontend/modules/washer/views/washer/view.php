@@ -29,7 +29,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             [
                 'attribute' => 'image',
-                'value' => function($model){return $model->image;},
+                'value' => function($model){return '@web/images/washers/' . $model->image;},
                 'format' => ['image', ['width' => 100, 'height' => 100]],
             ],
             'name',

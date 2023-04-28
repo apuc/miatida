@@ -74,8 +74,8 @@ class WasherController extends Controller
 
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
-//            $model->image = UploadedFile::getInstance($model, 'image');
-//            $model->image->saveAs("@frontend/web/images/washers/{$model->image->baseName}.{$model->image->extension}");
+            $model->image = UploadedFile::getInstance($model, 'image');
+            $model->image->saveAs("@frontend/web/images/washers/{$model->image->baseName}.{$model->image->extension}");
             $model->user_id = \common\services\UserService::makeUser($model, 'washer', false);
             $model->date_birth = strtotime( $model->date_birth);
             $model->save(false);
