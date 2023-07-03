@@ -99,10 +99,15 @@ class WasherController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $image = $model->image;
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $model->image = UploadedFile::getInstance($model, 'image');
-            $model->image->saveAs("@frontend/web/images/washers/{$model->image->baseName}.{$model->image->extension}");
+            if (UploadedFile::getInstance($model, 'image')) {
+                $model->image = UploadedFile::getInstance($model, 'image');
+                $model->image->saveAs("@frontend/web/images/washers/{$model->image->baseName}.{$model->image->extension}");
+            }
+            else
+                $model->image = $image;
             $model->user_id = \common\services\UserService::makeUser($model, 'washer', true);
             $model->date_birth = strtotime( $model->date_birth);
             $model->save(false);

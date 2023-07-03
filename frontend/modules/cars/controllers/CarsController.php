@@ -76,10 +76,10 @@ class CarsController extends Controller
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
             $model->photo_id = $this->uploadFile($modelPhoto);
-            if  ($model->save()){
+            if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            }else {
-            $model->loadDefaultValues();
+            } else {
+                $model->loadDefaultValues();
             }
         }
 
@@ -107,13 +107,17 @@ class CarsController extends Controller
     {
         $model = $this->findModel($id);
         $modelPhoto = new CarPhotos();
+        $photo = $model->photo_id;
 
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $model->photo_id = $this->uploadFile($modelPhoto);
-            if  ($model->save()){
+            if (UploadedFile::getInstance($modelPhoto, 'path'))
+                $model->photo_id = $this->uploadFile($modelPhoto);
+            else
+                $model->photo_id = $photo;
+            if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            }else {
+            } else {
                 $model->loadDefaultValues();
             }
         }
