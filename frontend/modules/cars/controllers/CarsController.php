@@ -75,7 +75,8 @@ class CarsController extends Controller
 
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $model->photo_id = $this->uploadFile($modelPhoto);
+            if (UploadedFile::getInstance($modelPhoto, 'path'))
+                $model->photo_id = $this->uploadFile($modelPhoto);
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
