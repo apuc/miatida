@@ -28,7 +28,6 @@ class CarPhotos extends \yii\db\ActiveRecord
     {
         return [
             [['path'], 'string'],
-            [['path'], 'required'],
             [['path'], 'file', 'extensions' => 'jpg, png, jpeg', 'wrongExtension' => 'Только форматы jpg, png, jpeg']
         ];
     }

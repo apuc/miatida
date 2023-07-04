@@ -75,7 +75,6 @@ class CarsController extends Controller
 
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $modelPhoto->load(Yii::$app->request->post());
             $model->photo_id = $this->uploadFile($modelPhoto);
             if  ($model->save()){
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -92,8 +91,8 @@ class CarsController extends Controller
 
     public function uploadFile($file)
     {
-//        $file->path = UploadedFile::getInstance($file, 'path');
-//        $file->path->saveAs("@frontend/web/images/cars/{$file->path->baseName}.{$file->path->extension}");
+        $file->path = UploadedFile::getInstance($file, 'path');
+        $file->path->saveAs("@frontend/web/images/cars/{$file->path->baseName}.{$file->path->extension}");
         $file->save(false);
         return $file->id;
     }
@@ -108,15 +107,18 @@ class CarsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelPhoto = $model->photo;
+        $modelPhoto = new CarPhotos();
+        $photo = $model->photo_id;
 
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $modelPhoto->load(Yii::$app->request->post());
-            $model->photo_id = $this->uploadFile($modelPhoto);
-            if  ($model->save()){
+            if (UploadedFile::getInstance($modelPhoto, 'path'))
+                $model->photo_id = $this->uploadFile($modelPhoto);
+            else
+                $model->photo_id = $photo;
+            if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
-            }else {
+            } else {
                 $model->loadDefaultValues();
             }
         }

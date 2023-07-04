@@ -57,7 +57,7 @@ class Washer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'image', 'name', 'salary_percent', 'salary_exit', 'phone'], 'required'],
+            [['user_id', 'name', 'salary_percent', 'salary_exit', 'phone'], 'required'],
             [['user_id', 'salary_percent'], 'integer'],
             [['image', 'email', 'name','date_birth', 'password','add_phone_owner', 'add_phone', 'date_birth'], 'string'],
             [['phone', 'add_phone'], 'string', 'max' => 255],

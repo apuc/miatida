@@ -24,40 +24,25 @@ use yii\widgets\ActiveForm;
             'prompt' => 'Выберите категорию авто...'
         ]
     );
-//    $photoModel = new \common\models\CarPhotos;
+    $photoModel = new \common\models\CarPhotos;
     ?>
+    <?=  $form->field($photoModel, 'path')->fileInput()->widget(FileInput::class, [
+        'pluginOptions' => [
+            'initialPreviewAsData' => $photoModel->path,
+            'showZoom' => false,
+            'initialPreview' => [
+            $model->photo != null ? Html::img('@web/images/cars/' . $model->photo->path, ['class' => 'file-preview-image']):null,
+            ],
+            'overwriteInitial' => true,
+            'showCaption' => false,
+            'showRemove' => true,
+            'showDetails' => true,
+            'browseClass' => 'btn btn-primary btn-block',
+            'browseIcon' => '<i class="fa fa-camera"></i> ',
+            'browseLabel' => 'Выберите фото',
+        ],
 
-    <?=InputFile::widget([
-        'language' => 'ru',
-        'controller' => 'elfinder',
-        'filter' => 'image',
-        'name' => 'CarPhotos[path]',
-        'id' => 'washer-image',
-        'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
-        'options' => ['class' => 'form-control itemImg banner_update_on_change', 'maxlength' => '255'],
-        'buttonOptions' => ['class' => 'btn btn-primary'],
-        'value' => $modelPhoto->path,
-        'buttonName' => 'Выбрать фотографию',
-    ]);
-    ?>
-
-<!--    --><?php //=  $form->field($photoModel, 'path')->fileInput()->widget(FileInput::class, [
-//        'pluginOptions' => [
-//            'initialPreviewAsData' => $photoModel->path,
-//            'showZoom' => false,
-//            'initialPreview' => [
-//            $model->photo != null ? Html::img('@web/images/cars/' . $model->photo->path, ['class' => 'file-preview-image']):null,
-//            ],
-//            'overwriteInitial' => true,
-//            'showCaption' => false,
-//            'showRemove' => true,
-//            'showDetails' => true,
-//            'browseClass' => 'btn btn-primary btn-block',
-//            'browseIcon' => '<i class="fa fa-camera"></i> ',
-//            'browseLabel' => 'Выберите фото',
-//        ],
-//
-//    ]); ?>
+    ]); ?>
 
     <?= $form->field($model, 'client_id')->dropDownList(
         \common\models\Clients::getList(),

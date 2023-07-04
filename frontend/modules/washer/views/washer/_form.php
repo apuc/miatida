@@ -1,7 +1,6 @@
 <?php
 
 use kartik\widgets\FileInput;
-use mihaildev\elfinder\InputFile;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
