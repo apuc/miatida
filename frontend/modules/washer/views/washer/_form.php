@@ -1,6 +1,7 @@
 <?php
 
 use kartik\widgets\FileInput;
+use mihaildev\elfinder\InputFile;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,6 +13,20 @@ use yii\widgets\ActiveForm;
 <div class="washer-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+<!--    --><?php //=InputFile::widget([
+//        'language' => 'ru',
+//        'controller' => 'elfinder',
+//        'filter' => 'image',
+//        'name' => 'Washer[image]',
+//        'id' => 'washer-image',
+//        'template' => '<div class="input-group">{input}<span class="span-btn">{button}</span></div>',
+//        'options' => ['class' => 'form-control itemImg banner_update_on_change', 'maxlength' => '255'],
+//        'buttonOptions' => ['class' => 'btn btn-primary'],
+//        'value' => $model->image,
+//        'buttonName' => 'Выбрать фотографию',
+//    ]);
+//    ?>
 
     <?= $form->field($model, 'image')->fileInput()->widget(FileInput::class, [
         'pluginOptions' => [
