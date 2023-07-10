@@ -93,4 +93,20 @@ class WorkShifts extends \yii\db\ActiveRecord
         parent::afterFind();
         $this->prettyDate = date("d-m-Y", $this->date);
     }
+
+    public function washersWithUserId()
+    {
+        return ArrayHelper::map(Washer::find()->all(), 'user_id', 'name');
+    }
+
+    public function washersByDate()
+    {
+        $work_shifts = self::findAll(['date' => $this->date]);
+        $array = [];
+        foreach ($work_shifts as $shift)
+        {
+            $array[$shift->user_id] = Washer::findOne(['user_id' => $shift->user_id])->name;
+        }
+        return $array;
+    }
 }
