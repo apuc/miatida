@@ -1,6 +1,5 @@
 <?php
 
-use dosamigos\multiselect\MultiSelect;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -59,17 +58,16 @@ use yii\widgets\ActiveForm;
 
     <?php \yii\widgets\Pjax::end() ?>
     <?php
-    if(\common\models\Prices::getList() == null){
+    if (\common\models\Prices::getList() == null) {
         echo '<div class="alert alert-danger" role="alert">
                 PRICE не найден
               </div>';
-    }else{
-        echo $form->field($model, 'price[]')->widget(MultiSelect::className(), [
-            'data' => \common\models\Prices::getList(),
-            'clientOptions' => ['maxHeight' => 300,
-                'buttonWidth' => '100%',
-            ],
-            'options' => ['multiple' => true]]);
+    } else {
+        echo $form->field($model, 'price[]')->widget(\kartik\select2\Select2::className(),
+            [
+                'data' => \common\models\Prices::getList(),
+            ]
+        )->label('Прейскурант цен');
     }
     ?>
 

@@ -1,13 +1,11 @@
 <?php
 
-use dosamigos\multiselect\MultiSelect;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var frontend\modules\workShifts\models\WorkShifts $model */
 /** @var yii\widgets\ActiveForm $form */
-//print_r(\common\models\Washer::getList());die();
 ?>
 
 <div class="work-shifts-form">
@@ -15,16 +13,12 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($model, 'date')->input('date') ?>
-    <!--    \common\models\Washer::getList(),-->
 
-    <?= $form->field($model, 'user_id[]')->widget(MultiSelect::className(), [
-        'data' => \common\models\Washer::getList(),
-        'name' => 'bank',
-        'clientOptions' => ['maxHeight' => 300,
-            'buttonWidth' => '100%',
-
-        ],
-        'options' => ['multiple' => true]]);
+    <?= $form->field($model, 'user_id[]')->widget(\kartik\select2\Select2::className(),
+        [
+            'data' => $model->washersWithUserId(),
+            'options' => ['multiple' => true]
+        ]);
     ?>
 
     <?php
