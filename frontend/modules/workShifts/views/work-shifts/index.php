@@ -31,21 +31,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'attribute' => 'date',
-                'value' => function($model){
+                'value' => function ($model) {
                     return $model->prettyDate;
                 }
             ],
             [
+                'attribute' => 'shift',
+                'value' => function ($model) {
+                    return $model->labelByShift();
+                }
+            ],
+            [
                 'attribute' => 'user_id',
-                'value' => function($model){
+                'value' => function ($model) {
                     return \common\models\Washer::getWasherName($model->user->id);
                 }
             ],
             [
                 'class' => ActionColumn::className(),
+                'template' => '{view} {delete}',
                 'urlCreator' => function ($action, WorkShifts $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
-                 }
+                }
             ],
         ],
     ]); ?>

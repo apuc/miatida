@@ -10,14 +10,19 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "work_shifts".
  *
  * @property int $id
- * @property int|null $date
- * @property int|null $user_id
+ * @property int $date
+ * @property int $user_id
+ * @property int $shift
  */
 class WorkShifts extends \yii\db\ActiveRecord
 {
     public $prettyDate;
     public $name;
     public $washer_id;
+
+    protected const SHIFT_1 = 1;
+    protected const SHIFT_2 = 2;
+    protected const SHIFT_3 = 3;
 
     /**
      * {@inheritdoc}
@@ -46,7 +51,7 @@ class WorkShifts extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'user_id',], 'required'],
+            [['date', 'user_id', 'shift'], 'required'],
         ];
     }
 
@@ -60,6 +65,7 @@ class WorkShifts extends \yii\db\ActiveRecord
             'date' => 'Дата',
             'user_id' => 'Мойщик',
             'salary' => 'зарплата',
+            'shift' => 'Смена'
         ];
     }
 
@@ -108,5 +114,24 @@ class WorkShifts extends \yii\db\ActiveRecord
             $array[$shift->user_id] = Washer::findOne(['user_id' => $shift->user_id])->name;
         }
         return $array;
+    }
+
+    public function shiftsWithlabels()
+    {
+        return [
+            self::SHIFT_1 => '9:00 - 20:00',
+            self::SHIFT_2 => '20:00 - 9:00',
+            self::SHIFT_3 => '9:00 - 9:00',
+        ];
+    }
+
+    public function labelByShift()
+    {
+        if ($this->shift == 1)
+            return '9:00 - 20:00';
+        if ($this->shift == 2)
+            return '20:00 - 9:00';
+        if ($this->shift == 3)
+            return '9:00 - 9:00';
     }
 }

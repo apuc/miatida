@@ -21,6 +21,13 @@ use yii\widgets\ActiveForm;
         ]);
     ?>
 
+    <?= $form->field($model, 'shift')->widget(\kartik\select2\Select2::className(),
+        [
+            'data' => $model->shiftsWithlabels(),
+            'options' => ['multiple' => false]
+        ]);
+    ?>
+
     <?php
     $salaryModel = new \common\models\Salary();
     ?>
