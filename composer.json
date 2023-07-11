@@ -21,7 +21,8 @@
         "kartik-v/yii2-widgets": "dev-master",
         "2amigos/yii2-multi-select-widget" : "*",
         "hail812/yii2-adminlte3": "~1.1",
-        "mihaildev/yii2-elfinder": "dev-master"
+        "mihaildev/yii2-elfinder": "dev-master",
+        "kartik-v/yii2-widget-datepicker": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
