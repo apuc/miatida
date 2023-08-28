@@ -113,8 +113,7 @@ class UserController extends BackendController
 		} else {
 			$model = User::findOne(['id' => $id]);
         }
-        if ($model->load(Yii::$app->request->post())) {
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             RoleService::setRole($model->id, $model->role);
 			return $this->redirect(['index']);
 		}

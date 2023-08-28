@@ -46,6 +46,7 @@ class WorkShiftsSearch extends WorkShifts
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $params['WorkShiftsSearch']['date'] = strtotime($params['WorkShiftsSearch']['date']);
 
         $this->load($params);
 
