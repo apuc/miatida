@@ -71,6 +71,7 @@ class User extends \common\models\oldUser\User
         $rules[] = [['role'], 'string'];
         $rules[] = [['phone'], 'string'];
         $rules[] = [['phone'], 'required'];
+        $rules[] = [['username'], 'unique'];
         return $rules;
     }
 
