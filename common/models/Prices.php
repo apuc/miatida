@@ -75,6 +75,17 @@ class Prices extends \yii\db\ActiveRecord
         return ArrayHelper::map(self::find()->all(), 'id', 'price');
     }
 
+    public static function getListWithServiceName()
+    {
+        $prices = self::find()->all();
+        $result = [];
+        foreach ($prices as $price) {
+            $result[$price->id] = $price->services->name . ' ' . $price->price;
+        }
+
+        return $result;
+    }
+
     /**
      * Gets query for [[Services]].
      *
