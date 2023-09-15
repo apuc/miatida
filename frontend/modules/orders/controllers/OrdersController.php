@@ -75,7 +75,9 @@ class OrdersController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $model->save();
-                \common\services\PriceInfoService::makePrices($model);
+                $amount = array_sum(\common\services\PriceInfoService::makePrices($model));
+                $model->amount = $amount;
+                $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {

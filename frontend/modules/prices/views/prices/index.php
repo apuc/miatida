@@ -48,6 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'price',
             [
+                'attribute' => 'is_dynamic_price',
+                'value' => function($model){
+                    return $model->is_dynamic_price ? 'Да' : 'Нет';
+                }
+            ],
+            [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Prices $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
