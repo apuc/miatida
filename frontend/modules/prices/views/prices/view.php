@@ -43,6 +43,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->bodyType->name
             ],
             'price',
+            [
+                'attribute' => 'is_dynamic_price',
+                'value' => function($model){
+                    return $model->is_dynamic_price ? 'Да' : 'Нет';
+                }
+            ],
 
         ],
     ]) ?>

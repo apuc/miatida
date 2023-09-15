@@ -24,5 +24,7 @@ class PriceInfoService
         $salaryModel->salary = $salaryModel->salary + Washer::washerSalary($model->user_id, array_sum($prices));
 
         $salaryModel->save();
+
+        return $prices;
     }
 }

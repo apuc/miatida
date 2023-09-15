@@ -14,6 +14,7 @@ use yii\helpers\ArrayHelper;
  * @property int $body_type_id
  * @property int $washer_salary
  * @property int|null $price
+ * @property boolean $is_dynamic_price
  *
  * @property BodyTypes $bodyType
  * @property Services $services
@@ -41,6 +42,7 @@ class Prices extends \yii\db\ActiveRecord
             [['body_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => BodyTypes::class, 'targetAttribute' => ['body_type_id' => 'id']],
             [['services_id'], 'exist', 'skipOnError' => true, 'targetClass' => Services::class, 'targetAttribute' => ['services_id' => 'id']],
             [['tarif_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tarifes::class, 'targetAttribute' => ['tarif_id' => 'id']],
+            ['is_dynamic_price', 'boolean']
         ];
     }
 
@@ -56,7 +58,8 @@ class Prices extends \yii\db\ActiveRecord
             'tarif_id' => 'Прайс',
             'body_type_id' => 'Категория авто',
             'price' => 'Стоимость',
-            'washer_salary' => 'Зарплата мойщику'
+            'washer_salary' => 'Зарплата мойщику',
+            'is_dynamic_price' => 'Цена от'
         ];
     }
 

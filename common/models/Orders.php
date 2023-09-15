@@ -16,10 +16,12 @@ use yii\db\ActiveRecord;
  * @property int|null $status
  * @property int|null $created_at
  * @property int|null $updated_at
+ * @property float $amount
  *
  * @property Cars $car
  * @property Clients $client
  * @property Prices $price
+ * @property Prices[] $prices
  * @property User $user
  * @property WorkShifts $workShift
  */
@@ -73,7 +75,8 @@ class Orders extends \yii\db\ActiveRecord
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::class, 'targetAttribute' => ['client_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['work_shift_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkShifts::class, 'targetAttribute' => ['work_shift_id' => 'id']],
-            [['user_id', 'client_id', 'car_id', 'work_shift_id', 'price', 'status'], 'required']
+            [['user_id', 'client_id', 'car_id', 'work_shift_id', 'price', 'status'], 'required'],
+            [['amount'], 'double']
         ];
     }
 
@@ -93,6 +96,7 @@ class Orders extends \yii\db\ActiveRecord
             'is_cash' => 'Расчет наличными',
             'created_at' => 'Создано',
             'updated_at' => 'Обновлено',
+            'amount' => 'Сумма'
         ];
     }
 
@@ -175,5 +179,10 @@ class Orders extends \yii\db\ActiveRecord
         parent::afterFind();
         $this->prettyCreateDate = date("d-m-Y H:i", $this->created_at);
         $this->prettyUpdateDate = date("d-m-Y H:i", $this->updated_at);
+    }
+
+    public function getPrices()
+    {
+        return $this->hasMany(Prices::class, ['id' => 'price_id'])->viaTable('price_info', ['order_id' => 'id']);
     }
 }

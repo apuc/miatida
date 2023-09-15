@@ -66,6 +66,9 @@ use yii\widgets\ActiveForm;
         echo $form->field($model, 'price[]')->widget(\kartik\select2\Select2::className(),
             [
                 'data' => \common\models\Prices::getListWithServiceName(),
+                'options' => [
+                    'multiple' => true
+                ]
             ]
         )->label('Прейскурант цен');
     }

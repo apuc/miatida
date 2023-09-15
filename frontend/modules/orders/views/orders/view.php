@@ -45,8 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'Price',
                 'value' => function($model){
                     $prices =[];
-                    foreach (\common\models\Orders::getPrice($model->id) as $item){
-                        $prices [] =  $item['price'];
+                    foreach ($model->getPrices()->all() as $item){
+                        $prices [] =  $item->services->name . '-' . $item->price;
                     }
                     return implode(',', $prices);
                 }
@@ -74,7 +74,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'updated_at',
                 'value' => $model->prettyUpdateDate,
                 'label' => 'Дата и время редактирования'
-            ]
+            ],
+            'amount'
         ],
     ]) ?>
 
