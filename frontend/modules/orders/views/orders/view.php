@@ -75,7 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => $model->prettyUpdateDate,
                 'label' => 'Дата и время редактирования'
             ],
-            'amount'
+            [
+                'attribute' => 'amount',
+                'value' => function($model){
+                    return $model->amount + $model->additional_price;
+                }
+            ],
         ],
     ]) ?>
 

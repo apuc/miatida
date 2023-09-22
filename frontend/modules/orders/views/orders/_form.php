@@ -74,6 +74,8 @@ use yii\widgets\ActiveForm;
     }
     ?>
 
+    <?= $form->field($model, 'additional_price')->textInput(['disabled' => true]) ?>
+
     <?= $form->field($model, 'status')->dropDownList(\common\models\Services::getStatusLabel()) ?>
 
     <?= $form->field($model, 'is_cash')->checkbox(['value' => '1', 'checked ' => true])->label(''); ?>
@@ -83,3 +85,13 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+<?php
+$script = <<< JS
+    $("#orders-price").on("change", function (e) {
+        var select = $("#orders-price").select2('data');
+        var items = select.some(item => item.text.endsWith(' 1'))
+        $('#orders-additional_price').prop('disabled', !items);
+    });
+JS;
+$this->registerJs($script);
+?>

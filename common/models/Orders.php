@@ -17,6 +17,7 @@ use yii\db\ActiveRecord;
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property float $amount
+ * @property float $additional_price
  *
  * @property Cars $car
  * @property Clients $client
@@ -76,7 +77,7 @@ class Orders extends \yii\db\ActiveRecord
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
             [['work_shift_id'], 'exist', 'skipOnError' => true, 'targetClass' => WorkShifts::class, 'targetAttribute' => ['work_shift_id' => 'id']],
             [['user_id', 'client_id', 'car_id', 'work_shift_id', 'price', 'status'], 'required'],
-            [['amount'], 'double']
+            [['amount', 'additional_price'], 'double']
         ];
     }
 
@@ -96,7 +97,8 @@ class Orders extends \yii\db\ActiveRecord
             'is_cash' => 'Расчет наличными',
             'created_at' => 'Создано',
             'updated_at' => 'Обновлено',
-            'amount' => 'Сумма'
+            'amount' => 'Сумма',
+            'additional_price' => 'Добавочная стоимость'
         ];
     }
 

@@ -83,7 +83,7 @@ class Prices extends \yii\db\ActiveRecord
         $prices = self::find()->all();
         $result = [];
         foreach ($prices as $price) {
-            $result[$price->id] = $price->services->name . ' ' . $price->price;
+            $result[$price->id] = $price->services->name . ' ' . $price->price . '' . ($price->is_dynamic_price ? ' 1' : '');
         }
 
         return $result;
