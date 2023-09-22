@@ -68,7 +68,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Orders::getStatusLabel()[$model->status];
                 }
             ],
-            'amount',
+            [
+                'attribute' => 'amount',
+                'value' => function($model){
+                    return $model->amount + $model->additional_price;
+                }
+            ],
             [
                 'attribute' => 'created_at',
                 'value' => function($model){
