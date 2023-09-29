@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use http\Params;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -62,6 +63,10 @@ class Washer extends \yii\db\ActiveRecord
             [['image', 'email', 'name','date_birth', 'password','add_phone_owner', 'add_phone', 'date_birth'], 'string'],
             [['phone', 'add_phone'], 'string', 'max' => 255],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            ['phone', function ($attribute, $params, $validator) {
+            if (User::find()->where(['phone' => $this->phone])->exists())
+                $this->addError($attribute, 'This phone number already exists.');
+            }],
         ];
     }
 

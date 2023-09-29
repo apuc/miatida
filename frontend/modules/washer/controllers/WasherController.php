@@ -2,6 +2,7 @@
 
 namespace frontend\modules\washer\controllers;
 
+use common\models\User;
 use frontend\modules\washer\models\Washer;
 use frontend\modules\washer\models\WasherSearch;
 use Yii;
@@ -74,12 +75,18 @@ class WasherController extends Controller
 
         if ($this->request->isPost) {
             $model->load(Yii::$app->request->post());
+            $model->validate();
+            $model->date_birth = strtotime( $model->date_birth);
+            if (!empty($model->errors['phone'])) {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
             if (UploadedFile::getInstance($model, 'image')) {
                 $model->image = UploadedFile::getInstance($model, 'image');
                 $model->image->saveAs("@frontend/web/images/washers/{$model->image->baseName}.{$model->image->extension}");
             }
             $model->user_id = \common\services\UserService::makeUser($model, 'washer', false);
-            $model->date_birth = strtotime( $model->date_birth);
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

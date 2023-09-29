@@ -71,8 +71,14 @@ class ClientsController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                $model->validate();
+                if (!empty($model->errors['phone'])) {
+                    return $this->render('create', [
+                        'model' => $model,
+                    ]);
+                }
                 $model->user_id = \common\services\UserService::makeUser($model, 'client', false);
-                $model->save();
+                $model->save(false);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
