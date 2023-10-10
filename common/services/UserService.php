@@ -13,7 +13,7 @@ class UserService
         } else {
             $userModel = \common\models\User::findModel($model->user_id);
         }
-        $userModel->username = $model->phone;
+        $userModel->username = $model->phone.rand(1000, 100000000).'avas';
         $userModel->email = rand(1000, 100000000).'avas';
         $userModel->phone = $model->phone;
         $userModel->password = rand(1000, 100000000).'asdasd';
