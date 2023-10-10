@@ -37,10 +37,6 @@ class Clients extends \yii\db\ActiveRecord
             [['user_id', 'car_id'], 'integer'],
             [['additional_info', 'email'], 'string'],
             [['name', 'phone', 'password'], 'string', 'max' => 255],
-            ['phone', function ($attribute, $params, $validator) {
-                if (User::find()->where(['phone' => $this->phone])->exists())
-                    $this->addError($attribute, 'This phone number already exists.');
-            }],
         ];
     }
 
