@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'work_shift_id',
                 'value' => function($model){
-                    return $model->workShift->prettyDate;
+                    return $model->workShift ? $model->workShift->prettyDate : '';
                 }
             ],
             [
