@@ -18,6 +18,10 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'number')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'region')->textInput(['type' => 'number', 'maxlength' => true]) ?>
+
     <?= $form->field($model, 'body_type_id')->dropDownList(
         \common\models\BodyTypes::getList(),
         $params = [

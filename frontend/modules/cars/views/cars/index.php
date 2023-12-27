@@ -29,6 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'name',
+            'number',
+            'region',
             [
                 'attribute' => 'body_type_id',
                 'value' => function($model){
