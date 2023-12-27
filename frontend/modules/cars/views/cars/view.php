@@ -32,6 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
+            'number',
+            'region',
             [
                 'attribute' => 'body_type_id',
                 'value' => function($model){

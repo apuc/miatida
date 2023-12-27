@@ -14,6 +14,8 @@ use yii\helpers\ArrayHelper;
  * @property int|null $body_type_id
  * @property int $photo_id
  * @property int $client_id
+ * @property int|null $region
+ * @property string $number
  * @property int|null $status
  * @property int|null $created_at
  * @property int|null $updated_at
@@ -65,9 +67,9 @@ class Cars extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['body_type_id', 'client_id', 'status', 'created_at', 'updated_at','photo_id'], 'integer'],
-            [['photo_id', 'client_id', 'body_type_id'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['body_type_id', 'client_id', 'status', 'created_at', 'updated_at','photo_id', 'region'], 'integer'],
+            [['photo_id', 'client_id', 'body_type_id', 'number'], 'required'],
+            [['name', 'number'], 'string', 'max' => 255],
             [['body_type_id'], 'exist', 'skipOnError' => true, 'targetClass' => BodyTypes::class, 'targetAttribute' => ['body_type_id' => 'id']],
             [['client_id'], 'exist', 'skipOnError' => true, 'targetClass' => Clients::class, 'targetAttribute' => ['client_id' => 'id']],
             [['photo_id'], 'exist', 'skipOnError' => true, 'targetClass' => CarPhotos::class, 'targetAttribute' => ['photo_id' => 'id']],
@@ -88,6 +90,8 @@ class Cars extends \yii\db\ActiveRecord
             'status' => 'Статус',
             'created_at' => 'Создано',
             'updated_at' => 'Обнавленно',
+            'number' => 'Номер',
+            'region' => 'Регион'
         ];
     }
 
